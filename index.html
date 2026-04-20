@@ -4,512 +4,252 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>SILINE Y — Cloud Architect & AI Builder | Auckland NZ</title>
-<meta name="description" content="SILINE Y — Cloud & Infrastructure Engineer, AI Builder, NZ Citizen. AWS Certified, Diploma in Cloud Engineering Level 7. Auckland, New Zealand.">
-<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Fraunces:ital,wght@0,700;0,900;1,700&display=swap" rel="stylesheet">
+<meta name="description" content="SILINE Y — Cloud Architect, AI Builder, NZ Citizen. AWS Certified, Diploma in Cloud Engineering Level 7, 20+ years IT. Auckland, New Zealand.">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Sora:wght@300;400;600;700;800&display=swap" rel="stylesheet">
 <style>
 :root {
-  --bg: #f8f7f4;
+  --royal: #1a3fbf;
+  --royal-dark: #122d8f;
+  --royal-deeper: #0d1f6b;
+  --royal-light: #2952d9;
+  --royal-pale: #e8edfc;
+  --royal-mid: #c0cdf8;
+  --sky: #3b82f6;
+  --cyan: #06b6d4;
+  --cyan-pale: #e0f7fb;
   --white: #ffffff;
-  --ink: #111111;
-  --ink2: #333333;
-  --muted: #666666;
-  --light: #e8e4de;
-  --lighter: #f1ede8;
-  --accent: #1a6b4a;
-  --accent-bg: #edf7f2;
-  --accent-light: #c8e8d8;
-  --orange: #c85a00;
-  --orange-bg: #fff3eb;
-  --blue: #1a4a8a;
-  --blue-bg: #eef3fb;
-  --border: #e0dbd4;
-  --radius: 12px;
-  --radius-sm: 8px;
+  --bg: #f0f4ff;
+  --surface: #ffffff;
+  --ink: #0a0f2e;
+  --ink2: #1e2a5e;
+  --muted: #5a6a9a;
+  --border: #d0d9f5;
+  --border-light: #e8edfc;
+  --gold: #f59e0b;
+  --gold-pale: #fef3c7;
+  --green: #059669;
+  --green-pale: #d1fae5;
+  --r: 14px;
+  --r-sm: 8px;
+  --r-lg: 20px;
+  --shadow: 0 4px 24px rgba(26,63,191,0.10);
+  --shadow-lg: 0 12px 48px rgba(26,63,191,0.15);
 }
 
-* { box-sizing: border-box; margin: 0; padding: 0; }
-html { scroll-behavior: smooth; }
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--ink);font-size:16px;line-height:1.6;overflow-x:hidden}
 
-body {
-  font-family: 'Plus Jakarta Sans', sans-serif;
-  background: var(--bg);
-  color: var(--ink);
-  font-size: 16px;
-  line-height: 1.6;
-  overflow-x: hidden;
-}
+/* ── NOISE TEXTURE OVERLAY ── */
+body::before{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.025'/%3E%3C/svg%3E");pointer-events:none;z-index:0;opacity:0.5}
 
-/* TYPOGRAPHY */
-h1,h2,h3 { font-family: 'Fraunces', serif; line-height: 1.1; }
-h1 { font-size: clamp(3rem, 7vw, 5.5rem); font-weight: 900; }
-h2 { font-size: clamp(1.8rem, 3vw, 2.4rem); font-weight: 700; margin-bottom: 8px; }
-h3 { font-size: 1.25rem; font-weight: 700; margin-bottom: 6px; }
-p { font-size: 1.05rem; color: var(--ink2); line-height: 1.75; }
+/* ── NAV ── */
+nav{position:sticky;top:0;z-index:200;background:rgba(255,255,255,0.92);backdrop-filter:blur(16px);border-bottom:1px solid var(--border-light);padding:0 56px;height:66px;display:flex;align-items:center;justify-content:space-between}
+.nav-logo{display:flex;align-items:center;gap:10px;text-decoration:none}
+.nav-logo-mark{width:36px;height:36px;background:linear-gradient(135deg,var(--royal),var(--royal-light));border-radius:10px;display:flex;align-items:center;justify-content:center;font-family:'Sora',sans-serif;font-weight:800;font-size:0.95rem;color:white;letter-spacing:-0.5px}
+.nav-logo-text{font-family:'Sora',sans-serif;font-weight:700;font-size:1rem;color:var(--ink);letter-spacing:-0.3px}
+.nav-links{display:flex;gap:4px;list-style:none}
+.nav-links a{font-size:0.88rem;font-weight:500;color:var(--muted);text-decoration:none;padding:7px 14px;border-radius:999px;transition:all 0.15s}
+.nav-links a:hover{background:var(--royal-pale);color:var(--royal)}
+.nav-cta{background:var(--royal);color:white;font-family:'Inter',sans-serif;font-size:0.88rem;font-weight:600;padding:9px 20px;border-radius:999px;text-decoration:none;border:none;cursor:pointer;transition:all 0.15s;display:flex;align-items:center;gap:6px}
+.nav-cta:hover{background:var(--royal-dark);transform:translateY(-1px);box-shadow:0 4px 16px rgba(26,63,191,0.3)}
 
-/* NAV */
-nav {
-  position: sticky;
-  top: 0;
-  z-index: 100;
-  background: var(--white);
-  border-bottom: 1px solid var(--border);
-  padding: 0 48px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  height: 64px;
-}
-.nav-logo {
-  font-family: 'Fraunces', serif;
-  font-size: 1.4rem;
-  font-weight: 900;
-  color: var(--accent);
-  letter-spacing: -0.5px;
-}
-.nav-links { display: flex; gap: 8px; list-style: none; }
-.nav-links a {
-  font-size: 0.9rem;
-  font-weight: 500;
-  color: var(--muted);
-  text-decoration: none;
-  padding: 6px 14px;
-  border-radius: 999px;
-  transition: all 0.15s;
-}
-.nav-links a:hover { background: var(--lighter); color: var(--ink); }
-.nav-btn {
-  background: var(--accent);
-  color: white;
-  border: none;
-  padding: 10px 20px;
-  border-radius: 999px;
-  font-family: 'Plus Jakarta Sans', sans-serif;
-  font-size: 0.9rem;
-  font-weight: 600;
-  cursor: pointer;
-  text-decoration: none;
-  display: inline-block;
-  transition: all 0.15s;
-}
-.nav-btn:hover { background: #155a3e; transform: translateY(-1px); }
+/* ── HERO ── */
+.hero-wrap{background:linear-gradient(160deg,var(--royal-deeper) 0%,var(--royal-dark) 40%,var(--royal) 70%,var(--royal-light) 100%);position:relative;overflow:hidden;padding:0}
+.hero-wrap::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 80% 60% at 70% 50%,rgba(59,130,246,0.25),transparent),radial-gradient(ellipse 40% 60% at 10% 80%,rgba(6,182,212,0.15),transparent);pointer-events:none}
+/* Grid lines */
+.hero-wrap::after{content:'';position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,0.04) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,0.04) 1px,transparent 1px);background-size:56px 56px;pointer-events:none}
 
-/* HERO */
-.hero {
-  background: var(--white);
-  padding: 80px 48px 80px;
-  max-width: 1100px;
-  margin: 0 auto;
-  display: grid;
-  grid-template-columns: 1fr auto;
-  gap: 48px;
-  align-items: center;
-}
-.hero-photo-wrap {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 16px;
-}
-.hero-photo {
-  width: 200px;
-  height: 200px;
-  border-radius: 50%;
-  object-fit: cover;
-  object-position: center top;
-  border: 4px solid var(--white);
-  box-shadow: 0 0 0 3px var(--accent), 0 12px 40px rgba(0,0,0,0.12);
-  display: block;
-}
-.hero-photo-name {
-  font-family: 'Fraunces', serif;
-  font-size: 1.1rem;
-  font-weight: 700;
-  color: var(--ink);
-  text-align: center;
-}
-.hero-photo-role {
-  font-size: 0.82rem;
-  font-weight: 600;
-  color: var(--muted);
-  text-align: center;
-  margin-top: -10px;
-}
-.hero-photo-location {
-  display: flex;
-  align-items: center;
-  gap: 5px;
-  font-size: 0.82rem;
-  font-weight: 500;
-  color: var(--accent);
-  background: var(--accent-bg);
-  border: 1px solid var(--accent-light);
-  padding: 4px 12px;
-  border-radius: 999px;
-}
-.hero-tag {
-  display: inline-block;
-  background: var(--accent-bg);
-  color: var(--accent);
-  border: 1px solid var(--accent-light);
-  font-size: 0.85rem;
-  font-weight: 600;
-  padding: 6px 16px;
-  border-radius: 999px;
-  margin-bottom: 24px;
-}
-.hero h1 {
-  color: var(--ink);
-  margin-bottom: 8px;
-}
-.hero h1 span { color: var(--accent); }
-.hero-subtitle {
-  font-size: 1.15rem;
-  font-weight: 500;
-  color: var(--muted);
-  margin-bottom: 24px;
-  letter-spacing: -0.2px;
-}
-.hero-bio {
-  font-size: 1.1rem;
-  color: var(--ink2);
-  line-height: 1.8;
-  max-width: 560px;
-  margin-bottom: 32px;
-}
-.hero-pills {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-  margin-bottom: 36px;
-}
-.pill {
-  font-size: 0.85rem;
-  font-weight: 600;
-  padding: 6px 14px;
-  border-radius: 999px;
-  border: 1.5px solid;
-  display: inline-block;
-}
-.pill-green { background: var(--accent-bg); color: var(--accent); border-color: var(--accent-light); }
-.pill-orange { background: var(--orange-bg); color: var(--orange); border-color: #ffc899; }
-.pill-blue { background: var(--blue-bg); color: var(--blue); border-color: #b8cef5; }
-.pill-gray { background: var(--lighter); color: var(--ink2); border-color: var(--border); }
+.hero{position:relative;z-index:1;max-width:1100px;margin:0 auto;padding:80px 56px 80px;display:grid;grid-template-columns:auto 1fr auto;gap:60px;align-items:center}
 
-.hero-actions { display: flex; gap: 12px; flex-wrap: wrap; }
-.btn {
-  display: inline-block;
-  padding: 13px 28px;
-  border-radius: 999px;
-  font-family: 'Plus Jakarta Sans', sans-serif;
-  font-size: 1rem;
-  font-weight: 600;
-  text-decoration: none;
-  transition: all 0.15s;
-  border: 2px solid transparent;
-  cursor: pointer;
-}
-.btn-green { background: var(--accent); color: white; }
-.btn-green:hover { background: #155a3e; transform: translateY(-2px); box-shadow: 0 6px 20px rgba(26,107,74,0.25); }
-.btn-orange { background: var(--orange); color: white; }
-.btn-orange:hover { background: #a84a00; transform: translateY(-2px); }
-.btn-outline { background: transparent; border-color: var(--border); color: var(--ink2); }
-.btn-outline:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-2px); }
+/* Photo */
+.hero-photo-col{display:flex;flex-direction:column;align-items:center;gap:14px}
+.photo-ring{width:180px;height:180px;border-radius:50%;padding:3px;background:linear-gradient(135deg,var(--cyan),var(--royal-light),white);flex-shrink:0}
+.photo-ring img{width:100%;height:100%;border-radius:50%;object-fit:cover;object-position:center top;border:3px solid var(--royal-deeper);display:block}
+.photo-name{font-family:'Sora',sans-serif;font-weight:700;font-size:1rem;color:white;text-align:center}
+.photo-role{font-size:0.78rem;font-weight:500;color:rgba(255,255,255,0.65);text-align:center;margin-top:-8px}
+.photo-location{display:flex;align-items:center;gap:5px;font-size:0.78rem;font-weight:600;color:var(--cyan);background:rgba(6,182,212,0.12);border:1px solid rgba(6,182,212,0.3);padding:4px 12px;border-radius:999px}
 
-/* Hero stats card */
-.hero-stats {
-  background: var(--lighter);
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  padding: 32px 28px;
-  display: flex;
-  flex-direction: column;
-  gap: 24px;
-  min-width: 180px;
-}
-.stat { text-align: center; }
-.stat-num {
-  font-family: 'Fraunces', serif;
-  font-size: 2.8rem;
-  font-weight: 900;
-  color: var(--accent);
-  line-height: 1;
-  display: block;
-}
-.stat-label { font-size: 0.8rem; font-weight: 600; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; margin-top: 4px; }
-.stat-divider { height: 1px; background: var(--border); }
+/* Hero text */
+.hero-text{}
+.hero-badge{display:inline-flex;align-items:center;gap:7px;background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.2);color:rgba(255,255,255,0.85);font-size:0.8rem;font-weight:600;padding:6px 14px;border-radius:999px;margin-bottom:24px;backdrop-filter:blur(8px)}
+.hero-badge span{width:7px;height:7px;background:var(--cyan);border-radius:50%;display:inline-block;animation:pulse-dot 2s ease-in-out infinite}
+@keyframes pulse-dot{0%,100%{opacity:1;transform:scale(1)}50%{opacity:0.5;transform:scale(0.8)}}
+.hero h1{font-family:'Sora',sans-serif;font-size:clamp(2.6rem,5vw,4.2rem);font-weight:800;line-height:1.08;color:white;letter-spacing:-1.5px;margin-bottom:6px}
+.hero h1 em{font-style:normal;background:linear-gradient(90deg,var(--cyan),#a5f3fc);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hero-sub{font-size:1rem;font-weight:500;color:rgba(255,255,255,0.65);margin-bottom:24px;letter-spacing:-0.2px}
+.hero-bio{font-size:1.02rem;color:rgba(255,255,255,0.8);line-height:1.8;max-width:520px;margin-bottom:28px;font-weight:300}
+.hero-bio strong{color:white;font-weight:600}
+.hero-pills{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:32px}
+.hpill{font-size:0.78rem;font-weight:600;padding:5px 13px;border-radius:999px;border:1px solid;display:inline-flex;align-items:center;gap:5px}
+.hpill-gold{background:rgba(245,158,11,0.15);border-color:rgba(245,158,11,0.4);color:#fcd34d}
+.hpill-cyan{background:rgba(6,182,212,0.12);border-color:rgba(6,182,212,0.35);color:#67e8f9}
+.hpill-white{background:rgba(255,255,255,0.1);border-color:rgba(255,255,255,0.25);color:rgba(255,255,255,0.85)}
+.hero-actions{display:flex;gap:12px;flex-wrap:wrap}
+.hbtn{display:inline-flex;align-items:center;gap:8px;padding:12px 24px;border-radius:999px;font-size:0.95rem;font-weight:600;text-decoration:none;transition:all 0.18s;cursor:pointer;border:none;font-family:'Inter',sans-serif}
+.hbtn-white{background:white;color:var(--royal)}
+.hbtn-white:hover{background:#f0f4ff;transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,0,0,0.15)}
+.hbtn-outline{background:rgba(255,255,255,0.1);color:white;border:1.5px solid rgba(255,255,255,0.3)}
+.hbtn-outline:hover{background:rgba(255,255,255,0.18);transform:translateY(-2px)}
+.hbtn-cyan{background:var(--cyan);color:var(--ink)}
+.hbtn-cyan:hover{background:#0891b2;color:white;transform:translateY(-2px);box-shadow:0 8px 24px rgba(6,182,212,0.3)}
 
-/* PRODUCTS STRIP */
-.products-strip {
-  background: var(--accent);
-  padding: 20px 48px;
-}
-.strip-inner {
-  max-width: 1100px;
-  margin: 0 auto;
-  display: flex;
-  align-items: center;
-  gap: 16px;
-  flex-wrap: wrap;
-}
-.strip-label { font-size: 0.8rem; font-weight: 700; color: rgba(255,255,255,0.7); letter-spacing: 1px; text-transform: uppercase; margin-right: 8px; }
-.strip-link {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  background: rgba(255,255,255,0.15);
-  color: white;
-  text-decoration: none;
-  font-size: 0.9rem;
-  font-weight: 600;
-  padding: 7px 16px;
-  border-radius: 999px;
-  border: 1px solid rgba(255,255,255,0.25);
-  transition: all 0.15s;
-}
-.strip-link:hover { background: rgba(255,255,255,0.25); }
+/* Hero stats */
+.hero-stats-col{display:flex;flex-direction:column;gap:0;background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.12);border-radius:var(--r-lg);overflow:hidden;backdrop-filter:blur(8px);min-width:150px}
+.hstat{padding:20px 24px;text-align:center;border-bottom:1px solid rgba(255,255,255,0.08)}
+.hstat:last-child{border-bottom:none}
+.hstat-num{font-family:'Sora',sans-serif;font-size:2.2rem;font-weight:800;color:white;line-height:1;display:block;letter-spacing:-1px}
+.hstat-num.cyan{background:linear-gradient(90deg,var(--cyan),#a5f3fc);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hstat-label{font-size:0.72rem;font-weight:600;color:rgba(255,255,255,0.5);text-transform:uppercase;letter-spacing:1px;margin-top:3px}
 
-/* SECTION */
-.section { padding: 80px 48px; max-width: 1100px; margin: 0 auto; }
-.section-header { margin-bottom: 48px; }
-.section-eyebrow { font-size: 0.8rem; font-weight: 700; color: var(--accent); text-transform: uppercase; letter-spacing: 2px; margin-bottom: 10px; }
-.section-divider { width: 48px; height: 3px; background: var(--accent); border-radius: 999px; margin-top: 12px; }
+/* ── PRODUCTS STRIP ── */
+.products-strip{background:var(--ink2);padding:16px 56px}
+.strip-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.strip-label{font-size:0.72rem;font-weight:700;color:rgba(255,255,255,0.4);letter-spacing:2px;text-transform:uppercase;margin-right:8px}
+.strip-link{display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,0.08);color:rgba(255,255,255,0.85);text-decoration:none;font-size:0.85rem;font-weight:600;padding:7px 16px;border-radius:999px;border:1px solid rgba(255,255,255,0.12);transition:all 0.15s}
+.strip-link:hover{background:var(--royal);border-color:var(--royal-light);color:white}
+.strip-link svg{width:12px;height:12px;opacity:0.6}
 
-/* ALT BG */
-.section-alt { background: var(--white); }
-.section-alt .section { padding: 80px 48px; }
+/* ── SECTIONS ── */
+.sec{padding:88px 56px;max-width:1100px;margin:0 auto;position:relative;z-index:1}
+.sec-alt{background:var(--white)}
+.sec-alt .sec{padding:88px 56px}
+.sec-eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:0.75rem;font-weight:700;color:var(--royal);text-transform:uppercase;letter-spacing:2.5px;margin-bottom:12px}
+.sec-eyebrow::before{content:'';width:20px;height:2px;background:var(--royal);border-radius:999px}
+.sec-title{font-family:'Sora',sans-serif;font-size:clamp(1.9rem,3vw,2.6rem);font-weight:800;color:var(--ink);letter-spacing:-0.8px;margin-bottom:8px;line-height:1.15}
+.sec-sub{font-size:1rem;color:var(--muted);max-width:540px;line-height:1.7;margin-bottom:0}
+.sec-head{margin-bottom:52px}
 
-/* SKILLS GRID */
-.skills-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 16px; }
-.skill-card {
-  background: var(--white);
-  border: 1.5px solid var(--border);
-  border-radius: var(--radius);
-  padding: 28px;
-  transition: all 0.2s;
-}
-.skill-card:hover { border-color: var(--accent); transform: translateY(-3px); box-shadow: 0 8px 24px rgba(0,0,0,0.07); }
-.skill-icon { font-size: 1.8rem; margin-bottom: 14px; }
-.skill-name { font-size: 1rem; font-weight: 700; color: var(--ink); margin-bottom: 12px; }
-.skill-tags { display: flex; flex-wrap: wrap; gap: 6px; }
-.tag {
-  font-size: 0.82rem;
-  font-weight: 500;
-  padding: 4px 10px;
-  background: var(--lighter);
-  color: var(--ink2);
-  border-radius: 6px;
-  border: 1px solid var(--border);
-  transition: all 0.15s;
-}
-.skill-card:hover .tag { background: var(--accent-bg); color: var(--accent); border-color: var(--accent-light); }
+/* ── SKILLS ── */
+.skills-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:16px}
+.sk-card{background:var(--white);border:1.5px solid var(--border-light);border-radius:var(--r);padding:28px;transition:all 0.22s;position:relative;overflow:hidden}
+.sk-card::after{content:'';position:absolute;inset:0;background:linear-gradient(135deg,var(--royal-pale),transparent);opacity:0;transition:opacity 0.22s}
+.sk-card:hover{border-color:var(--royal);transform:translateY(-4px);box-shadow:var(--shadow-lg)}
+.sk-card:hover::after{opacity:1}
+.sk-card>*{position:relative;z-index:1}
+.sk-icon{width:44px;height:44px;background:var(--royal-pale);border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:1.3rem;margin-bottom:16px}
+.sk-card:hover .sk-icon{background:var(--royal);filter:brightness(1.1)}
+.sk-name{font-family:'Sora',sans-serif;font-size:1rem;font-weight:700;color:var(--ink);margin-bottom:14px;letter-spacing:-0.2px}
+.tags{display:flex;flex-wrap:wrap;gap:6px}
+.tag{font-size:0.78rem;font-weight:500;padding:4px 10px;background:var(--bg);color:var(--ink2);border:1px solid var(--border);border-radius:6px;transition:all 0.15s}
+.sk-card:hover .tag{background:var(--royal-pale);color:var(--royal);border-color:var(--royal-mid)}
 
-/* FILTER BAR */
-.filter-bar { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 32px; }
-.filter-btn {
-  font-family: 'Plus Jakarta Sans', sans-serif;
-  font-size: 0.9rem;
-  font-weight: 600;
-  padding: 8px 20px;
-  border: 1.5px solid var(--border);
-  background: var(--white);
-  color: var(--muted);
-  border-radius: 999px;
-  cursor: pointer;
-  transition: all 0.15s;
-}
-.filter-btn:hover { border-color: var(--accent); color: var(--accent); }
-.filter-btn.active { background: var(--accent); border-color: var(--accent); color: white; }
+/* ── FILTER ── */
+.filter-bar{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:36px}
+.fbtn{font-family:'Inter',sans-serif;font-size:0.88rem;font-weight:600;padding:8px 20px;border:1.5px solid var(--border);background:var(--white);color:var(--muted);border-radius:999px;cursor:pointer;transition:all 0.15s}
+.fbtn:hover{border-color:var(--royal);color:var(--royal)}
+.fbtn.on{background:var(--royal);border-color:var(--royal);color:white;box-shadow:0 4px 16px rgba(26,63,191,0.25)}
 
-/* PROJECTS */
-.projects-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 20px; }
-.project-card {
-  background: var(--white);
-  border: 1.5px solid var(--border);
-  border-radius: var(--radius);
-  padding: 28px;
-  text-decoration: none;
-  display: block;
-  transition: all 0.2s;
-}
-.project-card.hidden { display: none; }
-.project-card:hover { border-color: var(--accent); transform: translateY(-4px); box-shadow: 0 12px 32px rgba(0,0,0,0.08); }
-.project-top { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 16px; }
-.project-icon-wrap {
-  width: 44px; height: 44px;
-  background: var(--lighter);
-  border-radius: var(--radius-sm);
-  display: flex; align-items: center; justify-content: center;
-  font-size: 20px;
-  transition: background 0.2s;
-}
-.project-card:hover .project-icon-wrap { background: var(--accent-bg); }
-.project-badges { display: flex; gap: 6px; align-items: center; flex-wrap: wrap; }
-.badge {
-  font-size: 0.72rem;
-  font-weight: 700;
-  padding: 3px 9px;
-  border-radius: 999px;
-  letter-spacing: 0.3px;
-}
-.badge-live { background: #e8f8ee; color: #1a7a3a; border: 1px solid #a8e4bc; }
-.badge-private { background: #f3eeff; color: #6a30b0; border: 1px solid #d0b4f5; }
-.badge-public { background: var(--accent-bg); color: var(--accent); border: 1px solid var(--accent-light); }
-.project-name { font-size: 1.05rem; font-weight: 700; color: var(--ink); margin-bottom: 4px; }
-.project-url { font-size: 0.82rem; font-weight: 500; color: var(--accent); margin-bottom: 10px; }
-.project-desc { font-size: 0.95rem; color: var(--muted); line-height: 1.65; margin-bottom: 16px; }
-.project-footer { display: flex; align-items: center; justify-content: space-between; }
-.project-lang { font-size: 0.82rem; font-weight: 600; color: var(--ink2); display: flex; align-items: center; gap: 6px; }
-.lang-dot { width: 8px; height: 8px; border-radius: 50%; display: inline-block; }
-.project-updated { font-size: 0.78rem; color: var(--muted); }
+/* ── PROJECTS ── */
+.proj-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:20px}
+.proj-card{background:var(--white);border:1.5px solid var(--border-light);border-radius:var(--r);padding:28px;text-decoration:none;display:flex;flex-direction:column;transition:all 0.22s;position:relative;overflow:hidden}
+.proj-card.hidden{display:none}
+.proj-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--royal),var(--sky),var(--cyan));opacity:0;transition:opacity 0.22s}
+.proj-card:hover{border-color:var(--royal);transform:translateY(-5px);box-shadow:var(--shadow-lg)}
+.proj-card:hover::before{opacity:1}
+.proj-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:18px}
+.proj-icon{width:46px;height:46px;background:var(--royal-pale);border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:1.4rem;transition:background 0.2s}
+.proj-card:hover .proj-icon{background:var(--royal);filter:brightness(1.15)}
+.proj-badges{display:flex;gap:6px;flex-wrap:wrap}
+.bdg{font-size:0.7rem;font-weight:700;padding:3px 9px;border-radius:999px;letter-spacing:0.2px;display:inline-flex;align-items:center;gap:4px}
+.bdg::before{content:'';width:5px;height:5px;border-radius:50%;display:inline-block}
+.bdg-live{background:var(--green-pale);color:var(--green);border:1px solid #a7f3d0}.bdg-live::before{background:var(--green)}
+.bdg-priv{background:#f3eeff;color:#7c3aed;border:1px solid #ddd6fe}.bdg-priv::before{background:#7c3aed}
+.bdg-pub{background:var(--royal-pale);color:var(--royal);border:1px solid var(--royal-mid)}.bdg-pub::before{background:var(--royal)}
+.proj-name{font-family:'Sora',sans-serif;font-size:1.05rem;font-weight:700;color:var(--ink);margin-bottom:5px;letter-spacing:-0.3px}
+.proj-url{font-size:0.8rem;font-weight:600;color:var(--royal);margin-bottom:12px;display:flex;align-items:center;gap:4px}
+.proj-desc{font-size:0.93rem;color:var(--muted);line-height:1.7;flex:1;margin-bottom:18px}
+.proj-foot{display:flex;align-items:center;justify-content:space-between;padding-top:14px;border-top:1px solid var(--border-light)}
+.proj-lang{font-size:0.8rem;font-weight:600;color:var(--ink2);display:flex;align-items:center;gap:6px}
+.ldot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+.proj-time{font-size:0.76rem;color:var(--muted)}
 
-/* EXPERIENCE */
-.exp-list { display: flex; flex-direction: column; gap: 20px; }
-.exp-card {
-  background: var(--white);
-  border: 1.5px solid var(--border);
-  border-radius: var(--radius);
-  padding: 32px;
-  transition: all 0.2s;
-  border-left: 4px solid var(--accent);
-}
-.exp-card:hover { box-shadow: 0 8px 24px rgba(0,0,0,0.07); transform: translateY(-2px); }
-.exp-header { display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 12px; margin-bottom: 6px; }
-.exp-role { font-size: 1.15rem; font-weight: 700; color: var(--ink); }
-.exp-period {
-  font-size: 0.85rem; font-weight: 600; color: var(--accent);
-  background: var(--accent-bg); padding: 4px 14px;
-  border-radius: 999px; border: 1px solid var(--accent-light);
-  white-space: nowrap;
-}
-.exp-company { font-size: 0.95rem; font-weight: 500; color: var(--muted); margin-bottom: 16px; }
-.exp-points { display: flex; flex-direction: column; gap: 6px; }
-.exp-point {
-  font-size: 0.98rem;
-  color: var(--ink2);
-  padding-left: 18px;
-  position: relative;
-  line-height: 1.6;
-}
-.exp-point::before { content: '→'; position: absolute; left: 0; color: var(--accent); font-size: 0.85rem; }
-.exp-achievement {
-  margin-top: 16px;
-  background: var(--accent-bg);
-  border: 1px solid var(--accent-light);
-  border-radius: var(--radius-sm);
-  padding: 14px 18px;
-  font-size: 0.95rem;
-  color: var(--accent);
-  font-weight: 500;
-  font-style: italic;
-}
+/* ── EXPERIENCE ── */
+.exp-list{display:flex;flex-direction:column;gap:20px}
+.exp-card{background:var(--white);border:1.5px solid var(--border-light);border-radius:var(--r);padding:32px;transition:all 0.22s;position:relative;border-left:4px solid var(--royal)}
+.exp-card:hover{box-shadow:var(--shadow);transform:translateY(-2px)}
+.exp-head{display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:12px;margin-bottom:6px}
+.exp-role{font-family:'Sora',sans-serif;font-size:1.1rem;font-weight:700;color:var(--ink);letter-spacing:-0.3px}
+.exp-period{font-size:0.82rem;font-weight:600;color:var(--royal);background:var(--royal-pale);padding:4px 14px;border-radius:999px;border:1px solid var(--royal-mid);white-space:nowrap}
+.exp-company{font-size:0.92rem;font-weight:500;color:var(--muted);margin-bottom:18px}
+.exp-pts{display:flex;flex-direction:column;gap:7px}
+.exp-pt{font-size:0.95rem;color:var(--ink2);padding-left:20px;position:relative;line-height:1.65}
+.exp-pt::before{content:'';position:absolute;left:0;top:9px;width:7px;height:7px;background:var(--royal);border-radius:50%}
+.exp-ach{margin-top:16px;background:linear-gradient(135deg,var(--royal-pale),var(--cyan-pale));border:1px solid var(--royal-mid);border-radius:var(--r-sm);padding:14px 18px;font-size:0.93rem;color:var(--royal-dark);font-weight:500;font-style:italic}
 
-/* EDUCATION */
-.edu-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 16px; }
-.edu-card {
-  background: var(--white);
-  border: 1.5px solid var(--border);
-  border-radius: var(--radius);
-  padding: 26px;
-  transition: all 0.2s;
-}
-.edu-card:hover { border-color: var(--accent); transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0,0,0,0.06); }
-.edu-card.featured { border-color: var(--orange); border-width: 2px; }
-.edu-card.featured:hover { border-color: var(--orange); }
-.edu-badge {
-  display: inline-block;
-  font-size: 0.75rem;
-  font-weight: 700;
-  padding: 3px 10px;
-  border-radius: 999px;
-  margin-bottom: 12px;
-  letter-spacing: 0.3px;
-}
-.edu-badge-aws { background: var(--orange-bg); color: var(--orange); border: 1px solid #ffc899; }
-.edu-badge-diploma { background: var(--accent-bg); color: var(--accent); border: 1px solid var(--accent-light); }
-.edu-badge-masters { background: var(--blue-bg); color: var(--blue); border: 1px solid #b8cef5; }
-.edu-badge-degree { background: var(--lighter); color: var(--ink2); border: 1px solid var(--border); }
-.edu-title { font-size: 1.05rem; font-weight: 700; color: var(--ink); margin-bottom: 5px; line-height: 1.35; }
-.edu-inst { font-size: 0.9rem; color: var(--muted); margin-bottom: 6px; }
-.edu-detail { font-size: 0.85rem; color: var(--ink2); font-weight: 500; }
-.grade-row { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 12px; }
-.grade-chip {
-  font-size: 0.78rem; font-weight: 700;
-  background: var(--accent-bg); color: var(--accent);
-  border: 1px solid var(--accent-light);
-  padding: 3px 9px; border-radius: 6px;
-}
+/* ── EDUCATION ── */
+.edu-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:16px}
+.edu-card{background:var(--white);border:1.5px solid var(--border-light);border-radius:var(--r);padding:26px;transition:all 0.22s}
+.edu-card:hover{border-color:var(--royal);transform:translateY(-3px);box-shadow:var(--shadow)}
+.edu-card.feat{border-top:3px solid var(--royal)}
+.edu-card.feat-gold{border-top:3px solid var(--gold)}
+.edu-bdg{display:inline-flex;align-items:center;gap:5px;font-size:0.72rem;font-weight:700;padding:3px 10px;border-radius:999px;margin-bottom:12px;letter-spacing:0.3px}
+.edu-bdg-aws{background:var(--gold-pale);color:#92400e;border:1px solid #fcd34d}
+.edu-bdg-diploma{background:var(--royal-pale);color:var(--royal);border:1px solid var(--royal-mid)}
+.edu-bdg-masters{background:var(--cyan-pale);color:#0e7490;border:1px solid #a5f3fc}
+.edu-bdg-deg{background:var(--bg);color:var(--ink2);border:1px solid var(--border)}
+.edu-title{font-family:'Sora',sans-serif;font-size:1rem;font-weight:700;color:var(--ink);margin-bottom:5px;line-height:1.35;letter-spacing:-0.2px}
+.edu-inst{font-size:0.88rem;color:var(--muted);margin-bottom:6px}
+.edu-detail{font-size:0.82rem;color:var(--ink2);font-weight:500}
+.grade-row{display:flex;flex-wrap:wrap;gap:5px;margin-top:12px}
+.gchip{font-size:0.75rem;font-weight:700;background:var(--royal-pale);color:var(--royal);border:1px solid var(--royal-mid);padding:3px 9px;border-radius:6px}
 
-/* CONTACT */
-.contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: start; }
-.contact-left h2 { margin-bottom: 14px; }
-.contact-left p { font-size: 1.05rem; color: var(--muted); margin-bottom: 28px; }
-.contact-links { display: flex; flex-direction: column; gap: 10px; }
-.contact-link {
-  display: flex;
-  align-items: center;
-  gap: 14px;
-  padding: 14px 20px;
-  background: var(--white);
-  border: 1.5px solid var(--border);
-  border-radius: var(--radius-sm);
-  text-decoration: none;
-  color: var(--ink);
-  font-size: 1rem;
-  font-weight: 500;
-  transition: all 0.2s;
-}
-.contact-link:hover { border-color: var(--accent); color: var(--accent); transform: translateX(4px); }
-.contact-icon { font-size: 1.1rem; width: 22px; text-align: center; flex-shrink: 0; }
+/* ── CONTACT ── */
+.contact-wrap{display:grid;grid-template-columns:1fr 1fr;gap:52px;align-items:start}
+.contact-links{display:flex;flex-direction:column;gap:10px;margin-top:28px}
+.clink{display:flex;align-items:center;gap:14px;padding:14px 20px;background:var(--white);border:1.5px solid var(--border-light);border-radius:var(--r-sm);text-decoration:none;color:var(--ink);font-size:0.95rem;font-weight:500;transition:all 0.18s}
+.clink:hover{border-color:var(--royal);color:var(--royal);transform:translateX(5px);box-shadow:var(--shadow)}
+.clink-icon{width:36px;height:36px;background:var(--royal-pale);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:1rem;flex-shrink:0;transition:background 0.18s}
+.clink:hover .clink-icon{background:var(--royal)}
+.clink-label{flex:1}
+.clink-arrow{color:var(--muted);font-size:0.85rem;transition:transform 0.18s}
+.clink:hover .clink-arrow{transform:translateX(4px);color:var(--royal)}
 
-/* INFO CARD */
-.info-card {
-  background: var(--accent);
-  border-radius: var(--radius);
-  padding: 36px;
-  color: white;
-}
-.info-card h3 { font-family: 'Fraunces', serif; font-size: 1.5rem; color: white; margin-bottom: 20px; }
-.info-row { display: flex; flex-direction: column; gap: 14px; }
-.info-item { display: flex; flex-direction: column; gap: 2px; }
-.info-label { font-size: 0.78rem; font-weight: 700; color: rgba(255,255,255,0.6); text-transform: uppercase; letter-spacing: 1px; }
-.info-value { font-size: 1rem; font-weight: 600; color: white; }
-.info-divider { height: 1px; background: rgba(255,255,255,0.15); margin: 4px 0; }
+/* Profile card */
+.profile-card{background:linear-gradient(160deg,var(--royal-deeper),var(--royal-dark),var(--royal));border-radius:var(--r-lg);padding:36px;color:white;position:relative;overflow:hidden}
+.profile-card::before{content:'';position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,0.04) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,0.04) 1px,transparent 1px);background-size:32px 32px;pointer-events:none}
+.profile-card>*{position:relative;z-index:1}
+.profile-photo-row{display:flex;align-items:center;gap:16px;margin-bottom:28px;padding-bottom:24px;border-bottom:1px solid rgba(255,255,255,0.12)}
+.profile-photo{width:60px;height:60px;border-radius:50%;object-fit:cover;object-position:center top;border:2px solid rgba(255,255,255,0.3)}
+.profile-photo-name{font-family:'Sora',sans-serif;font-weight:700;font-size:1.05rem;color:white}
+.profile-photo-title{font-size:0.8rem;color:rgba(255,255,255,0.6);margin-top:2px}
+.profile-rows{display:flex;flex-direction:column;gap:14px}
+.profile-row{display:flex;flex-direction:column;gap:2px}
+.prow-label{font-size:0.7rem;font-weight:700;color:rgba(255,255,255,0.45);text-transform:uppercase;letter-spacing:1.5px}
+.prow-val{font-size:0.93rem;font-weight:600;color:white}
+.prow-divider{height:1px;background:rgba(255,255,255,0.08)}
 
-/* FOOTER */
-footer {
-  background: var(--ink);
-  padding: 40px 48px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  gap: 16px;
-}
-.footer-left { font-size: 0.95rem; color: rgba(255,255,255,0.7); }
-.footer-left span { color: white; font-weight: 600; }
-.footer-links { display: flex; gap: 20px; }
-.footer-links a { font-size: 0.9rem; color: rgba(255,255,255,0.6); text-decoration: none; font-weight: 500; transition: color 0.15s; }
-.footer-links a:hover { color: white; }
+/* ── FOOTER ── */
+footer{background:var(--ink);padding:44px 56px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px}
+.foot-brand{display:flex;align-items:center;gap:10px}
+.foot-mark{width:32px;height:32px;background:var(--royal);border-radius:9px;display:flex;align-items:center;justify-content:center;font-family:'Sora',sans-serif;font-weight:800;font-size:0.85rem;color:white}
+.foot-text{font-size:0.9rem;color:rgba(255,255,255,0.6)}
+.foot-text span{color:white;font-weight:600}
+.foot-links{display:flex;gap:24px}
+.foot-links a{font-size:0.88rem;color:rgba(255,255,255,0.5);text-decoration:none;font-weight:500;transition:color 0.15s}
+.foot-links a:hover{color:white}
 
-/* ANIMATIONS */
-@keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
-.fade { opacity: 0; transform: translateY(20px); transition: opacity 0.55s ease, transform 0.55s ease; }
-.fade.visible { opacity: 1; transform: translateY(0); }
+/* ── SCROLL ANIMATION ── */
+.fade{opacity:0;transform:translateY(22px);transition:opacity 0.6s ease,transform 0.6s ease}
+.fade.vis{opacity:1;transform:translateY(0)}
+.fade-d1{transition-delay:0.08s}.fade-d2{transition-delay:0.16s}.fade-d3{transition-delay:0.24s}
+.fade-d4{transition-delay:0.32s}.fade-d5{transition-delay:0.4s}.fade-d6{transition-delay:0.48s}
 
-/* RESPONSIVE */
-@media (max-width: 800px) {
-  nav { padding: 0 20px; }
-  .nav-links { display: none; }
-  .hero { grid-template-columns: 1fr !important; padding: 48px 20px; }
-  .hero-photo-wrap { flex-direction: row; justify-content: flex-start; gap: 20px; align-items: center; }
-  .hero-photo { width: 80px; height: 80px; }
-  .hero-stats { flex-direction: row; flex-wrap: wrap; min-width: auto; }
-  .products-strip { padding: 16px 20px; }
-  .section { padding: 56px 20px; }
-  .section-alt .section { padding: 56px 20px; }
-  .contact-grid { grid-template-columns: 1fr; }
-  footer { padding: 32px 20px; }
-  h1 { font-size: 2.8rem; }
+/* ── RESPONSIVE ── */
+@media(max-width:900px){
+  nav{padding:0 20px}
+  .nav-links{display:none}
+  .hero{grid-template-columns:1fr;padding:52px 24px;gap:36px}
+  .hero-photo-col{flex-direction:row;justify-content:flex-start;align-items:center;gap:20px}
+  .photo-ring{width:80px;height:80px}
+  .hero-stats-col{flex-direction:row;min-width:auto}
+  .hstat{flex:1;border-bottom:none;border-right:1px solid rgba(255,255,255,0.08);padding:16px}
+  .hstat:last-child{border-right:none}
+  .products-strip{padding:14px 24px}
+  .sec,.sec-alt .sec{padding:60px 24px}
+  .contact-wrap{grid-template-columns:1fr}
+  footer{padding:32px 24px}
+  h1{font-size:2.4rem}
 }
 </style>
 </head>
@@ -517,7 +257,10 @@ footer {
 
 <!-- NAV -->
 <nav>
-  <div class="nav-logo">Siline Y</div>
+  <a class="nav-logo" href="#home">
+    <div class="nav-logo-mark">SY</div>
+    <span class="nav-logo-text">Siline Y</span>
+  </a>
   <ul class="nav-links">
     <li><a href="#skills">Skills</a></li>
     <li><a href="#projects">Projects</a></li>
@@ -525,272 +268,248 @@ footer {
     <li><a href="#education">Education</a></li>
     <li><a href="#contact">Contact</a></li>
   </ul>
-  <a href="resume.pdf" download class="nav-btn">↓ Resume</a>
+  <a href="resume.pdf" download class="nav-cta">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 15V3m0 12l-4-4m4 4l4-4M2 17l.621 2.485A2 2 0 004.561 21h14.878a2 2 0 001.94-1.515L22 17"/></svg>
+    Resume
+  </a>
 </nav>
 
 <!-- HERO -->
-<div style="background:var(--white); border-bottom:1px solid var(--border);">
-<div class="hero" style="grid-template-columns: auto 1fr auto; gap: 56px;">
+<div class="hero-wrap" id="home">
+  <div class="hero">
 
-  <!-- Photo column -->
-  <div class="hero-photo-wrap">
-    <img src="photo.jpg" alt="SILINE Y" class="hero-photo">
-    <div class="hero-photo-name">SILINE Y</div>
-    <div class="hero-photo-role">Cloud Architect · AI Builder</div>
-    <div class="hero-photo-location">📍 Auckland, NZ</div>
+    <div class="hero-photo-col">
+      <div class="photo-ring">
+        <img src="photo.jpg" alt="SILINE Y — Cloud Architect">
+      </div>
+      <div class="photo-name">SILINE Y</div>
+      <div class="photo-role">Cloud Architect · AI Builder</div>
+      <div class="photo-location">📍 Auckland, NZ</div>
+    </div>
+
+    <div class="hero-text">
+      <div class="hero-badge"><span></span>Available for new opportunities</div>
+      <h1>Cloud <em>Architect</em><br>&amp; AI Builder</h1>
+      <p class="hero-sub">Cloud &amp; Infrastructure Engineer · AI Product Builder · NZ Citizen</p>
+      <p class="hero-bio">
+        <strong>20+ years of IT experience</strong> — from running live business systems to building AWS &amp; Azure cloud infrastructure, developing AI agents, and shipping <strong>4 live SaaS products</strong> across New Zealand.
+      </p>
+      <div class="hero-pills">
+        <span class="hpill hpill-gold">🏆 AWS Certified Cloud Practitioner</span>
+        <span class="hpill hpill-cyan">✦ Diploma Cloud Engineering — All A+</span>
+        <span class="hpill hpill-white">🎓 MSc Waseda University, Tokyo</span>
+        <span class="hpill hpill-white">🇳🇿 NZ Citizen · Available Now</span>
+      </div>
+      <div class="hero-actions">
+        <a href="#projects" class="hbtn hbtn-white">View Projects →</a>
+        <a href="resume.pdf" download class="hbtn hbtn-cyan">↓ Download Resume</a>
+        <a href="https://linkedin.com/in/mkhmer" target="_blank" class="hbtn hbtn-outline">LinkedIn ↗</a>
+        <a href="https://github.com/siliney" target="_blank" class="hbtn hbtn-outline">GitHub ↗</a>
+      </div>
+    </div>
+
+    <div class="hero-stats-col">
+      <div class="hstat">
+        <span class="hstat-num cyan">20+</span>
+        <div class="hstat-label">Years IT</div>
+      </div>
+      <div class="hstat">
+        <span class="hstat-num">4</span>
+        <div class="hstat-label">Live Products</div>
+      </div>
+      <div class="hstat">
+        <span class="hstat-num cyan">A+</span>
+        <div class="hstat-label">All Grades</div>
+      </div>
+      <div class="hstat">
+        <span class="hstat-num">20</span>
+        <div class="hstat-label">Repos</div>
+      </div>
+    </div>
+
   </div>
-
-  <!-- Text column -->
-  <div>
-    <div class="hero-tag">☁️ Cloud Architect &amp; AI Builder · Auckland, NZ</div>
-    <h1>SILINE <span>Y</span></h1>
-    <p class="hero-subtitle">Cloud &amp; Infrastructure Engineer · AI Product Builder · NZ Citizen</p>
-    <p class="hero-bio">
-      20+ years of hands-on IT experience — from running business systems to building modern cloud infrastructure on AWS &amp; Azure, developing AI agents, and shipping 4 live SaaS products across New Zealand.
-    </p>
-    <div class="hero-pills">
-      <span class="pill pill-orange">AWS Certified Cloud Practitioner</span>
-      <span class="pill pill-green">Diploma Cloud Engineering — All A+</span>
-      <span class="pill pill-blue">MSc Waseda University, Tokyo</span>
-      <span class="pill pill-gray">NZ Citizen · Available Now</span>
-    </div>
-    <div class="hero-actions">
-      <a href="#projects" class="btn btn-green">View Projects</a>
-      <a href="resume.pdf" download class="btn btn-orange">↓ Download Resume</a>
-      <a href="https://linkedin.com/in/mkhmer" target="_blank" class="btn btn-outline">LinkedIn ↗</a>
-      <a href="https://github.com/siliney" target="_blank" class="btn btn-outline">GitHub ↗</a>
-    </div>
-  </div>
-
-  <!-- Stats column -->
-  <div class="hero-stats">
-    <div class="stat">
-      <span class="stat-num">20+</span>
-      <div class="stat-label">Years IT</div>
-    </div>
-    <div class="stat-divider"></div>
-    <div class="stat">
-      <span class="stat-num">4</span>
-      <div class="stat-label">Live Products</div>
-    </div>
-    <div class="stat-divider"></div>
-    <div class="stat">
-      <span class="stat-num">A+</span>
-      <div class="stat-label">All Grades</div>
-    </div>
-    <div class="stat-divider"></div>
-    <div class="stat">
-      <span class="stat-num">20</span>
-      <div class="stat-label">Repos</div>
-    </div>
-  </div>
-
-</div>
 </div>
 
-<!-- LIVE PRODUCTS STRIP -->
+<!-- PRODUCTS STRIP -->
 <div class="products-strip">
   <div class="strip-inner">
     <span class="strip-label">Live products</span>
-    <a href="https://www.tradia.co.nz" target="_blank" class="strip-link">🛒 tradia.co.nz</a>
-    <a href="https://www.getjobdone.co.nz" target="_blank" class="strip-link">🔨 getjobdone.co.nz</a>
-    <a href="https://www.jobready.co.nz" target="_blank" class="strip-link">🎯 jobready.co.nz</a>
-    <span class="strip-link" style="opacity:0.7;cursor:default">🎓 studentcareerplan.nz</span>
+    <a href="https://www.tradia.co.nz" target="_blank" class="strip-link">🛒 tradia.co.nz ↗</a>
+    <a href="https://www.getjobdone.co.nz" target="_blank" class="strip-link">🔨 getjobdone.co.nz ↗</a>
+    <a href="https://www.jobready.co.nz" target="_blank" class="strip-link">🎯 jobready.co.nz ↗</a>
+    <span class="strip-link" style="opacity:0.5;cursor:default">🎓 studentcareerplan.nz</span>
   </div>
 </div>
 
 <!-- SKILLS -->
 <div id="skills">
-<div class="section">
-  <div class="section-header fade">
-    <div class="section-eyebrow">01 — Skills</div>
-    <h2>Technical Stack</h2>
-    <div class="section-divider"></div>
+<div class="sec">
+  <div class="sec-head fade">
+    <div class="sec-eyebrow">01 — Skills</div>
+    <h2 class="sec-title">Technical Stack</h2>
+    <p class="sec-sub">Cloud, infrastructure, AI and development skills built over 20+ years in real-world environments.</p>
   </div>
   <div class="skills-grid">
-    <div class="skill-card fade">
-      <div class="skill-icon">☁️</div>
-      <div class="skill-name">Cloud Platforms</div>
-      <div class="skill-tags">
-        <span class="tag">AWS</span><span class="tag">Azure</span><span class="tag">EC2</span>
-        <span class="tag">S3</span><span class="tag">Lambda</span><span class="tag">VPC / VNet</span>
-        <span class="tag">RDS</span><span class="tag">IAM</span>
-      </div>
+    <div class="sk-card fade fade-d1">
+      <div class="sk-icon">☁️</div>
+      <div class="sk-name">Cloud Platforms</div>
+      <div class="tags"><span class="tag">AWS</span><span class="tag">Azure</span><span class="tag">EC2</span><span class="tag">S3</span><span class="tag">Lambda</span><span class="tag">VPC / VNet</span><span class="tag">RDS</span><span class="tag">IAM</span></div>
     </div>
-    <div class="skill-card fade">
-      <div class="skill-icon">🏗️</div>
-      <div class="skill-name">Infrastructure as Code</div>
-      <div class="skill-tags">
-        <span class="tag">Terraform</span><span class="tag">CloudFormation</span>
-        <span class="tag">LocalStack</span><span class="tag">HCL</span>
-        <span class="tag">Hyper-V</span><span class="tag">VMware</span>
-      </div>
+    <div class="sk-card fade fade-d2">
+      <div class="sk-icon">🏗️</div>
+      <div class="sk-name">Infrastructure as Code</div>
+      <div class="tags"><span class="tag">Terraform</span><span class="tag">CloudFormation</span><span class="tag">LocalStack</span><span class="tag">HCL</span><span class="tag">Hyper-V</span><span class="tag">VMware</span></div>
     </div>
-    <div class="skill-card fade">
-      <div class="skill-icon">🖥️</div>
-      <div class="skill-name">Desktop &amp; Systems</div>
-      <div class="skill-tags">
-        <span class="tag">Windows 10/11</span><span class="tag">Active Directory</span>
-        <span class="tag">Microsoft 365</span><span class="tag">Exchange</span>
-        <span class="tag">POS / EFTPOS</span><span class="tag">Shopify</span>
-      </div>
+    <div class="sk-card fade fade-d3">
+      <div class="sk-icon">🤖</div>
+      <div class="sk-name">AI &amp; Automation</div>
+      <div class="tags"><span class="tag">AI Agents</span><span class="tag">Multi-Tenant AI</span><span class="tag">n8n</span><span class="tag">KhmerBOT</span><span class="tag">TypeScript</span><span class="tag">LLM APIs</span></div>
     </div>
-    <div class="skill-card fade">
-      <div class="skill-icon">🌐</div>
-      <div class="skill-name">Networking &amp; Security</div>
-      <div class="skill-tags">
-        <span class="tag">TCP/IP</span><span class="tag">DNS</span><span class="tag">DHCP</span>
-        <span class="tag">LAN / WAN</span><span class="tag">MFA</span>
-        <span class="tag">RBAC</span><span class="tag">Firewall</span>
-      </div>
+    <div class="sk-card fade fade-d4">
+      <div class="sk-icon">🖥️</div>
+      <div class="sk-name">Desktop &amp; Systems</div>
+      <div class="tags"><span class="tag">Windows 10/11</span><span class="tag">Active Directory</span><span class="tag">Microsoft 365</span><span class="tag">POS/EFTPOS</span><span class="tag">Shopify</span></div>
     </div>
-    <div class="skill-card fade">
-      <div class="skill-icon">🤖</div>
-      <div class="skill-name">AI &amp; Automation</div>
-      <div class="skill-tags">
-        <span class="tag">AI Agents</span><span class="tag">Multi-Tenant AI</span>
-        <span class="tag">n8n</span><span class="tag">KhmerBOT</span>
-        <span class="tag">TypeScript</span><span class="tag">LLM Integration</span>
-      </div>
+    <div class="sk-card fade fade-d5">
+      <div class="sk-icon">🌐</div>
+      <div class="sk-name">Networking &amp; Security</div>
+      <div class="tags"><span class="tag">TCP/IP</span><span class="tag">DNS</span><span class="tag">DHCP</span><span class="tag">LAN/WAN</span><span class="tag">MFA</span><span class="tag">RBAC</span><span class="tag">Firewall</span></div>
     </div>
-    <div class="skill-card fade">
-      <div class="skill-icon">⚙️</div>
-      <div class="skill-name">DevOps &amp; Development</div>
-      <div class="skill-tags">
-        <span class="tag">CI/CD</span><span class="tag">Docker</span><span class="tag">Linux</span>
-        <span class="tag">Shell</span><span class="tag">PHP</span><span class="tag">Git</span>
-      </div>
+    <div class="sk-card fade fade-d6">
+      <div class="sk-icon">⚙️</div>
+      <div class="sk-name">DevOps &amp; Development</div>
+      <div class="tags"><span class="tag">CI/CD</span><span class="tag">Docker</span><span class="tag">Linux</span><span class="tag">Shell</span><span class="tag">PHP</span><span class="tag">Git</span></div>
     </div>
   </div>
 </div>
 </div>
 
 <!-- PROJECTS -->
-<div id="projects" class="section-alt">
-<div class="section">
-  <div class="section-header fade">
-    <div class="section-eyebrow">02 — Projects</div>
-    <h2>What I've Built</h2>
-    <div class="section-divider"></div>
+<div id="projects" class="sec-alt">
+<div class="sec">
+  <div class="sec-head fade">
+    <div class="sec-eyebrow">02 — Projects</div>
+    <h2 class="sec-title">What I've Built</h2>
+    <p class="sec-sub">4 live products deployed across New Zealand, plus open-source cloud and AI repositories.</p>
   </div>
   <div class="filter-bar">
-    <button class="filter-btn active" onclick="filter('all',this)">All</button>
-    <button class="filter-btn" onclick="filter('product',this)">Live Products</button>
-    <button class="filter-btn" onclick="filter('ai',this)">AI &amp; Agents</button>
-    <button class="filter-btn" onclick="filter('cloud',this)">Cloud &amp; IaC</button>
-    <button class="filter-btn" onclick="filter('devops',this)">DevOps</button>
+    <button class="fbtn on" onclick="fp('all',this)">All</button>
+    <button class="fbtn" onclick="fp('product',this)">Live Products</button>
+    <button class="fbtn" onclick="fp('ai',this)">AI &amp; Agents</button>
+    <button class="fbtn" onclick="fp('cloud',this)">Cloud &amp; IaC</button>
+    <button class="fbtn" onclick="fp('devops',this)">DevOps</button>
   </div>
-  <div class="projects-grid">
+  <div class="proj-grid">
 
-    <a href="https://www.tradia.co.nz" target="_blank" class="project-card fade" data-cat="product web">
-      <div class="project-top">
-        <div class="project-icon-wrap">🛒</div>
-        <div class="project-badges"><span class="badge badge-live">Live</span><span class="badge badge-private">Private</span></div>
+    <a href="https://www.tradia.co.nz" target="_blank" class="proj-card fade" data-cat="product web">
+      <div class="proj-top">
+        <div class="proj-icon">🛒</div>
+        <div class="proj-badges"><span class="bdg bdg-live">Live</span><span class="bdg bdg-priv">Private</span></div>
       </div>
-      <div class="project-name">Tradia</div>
-      <div class="project-url">tradia.co.nz ↗</div>
-      <div class="project-desc">All-in-one New Zealand marketplace — buy, sell, swap, make offers, and browse retail shop catalogs. Covers individual listings and full business storefronts.</div>
-      <div class="project-footer">
-        <div class="project-lang"><span class="lang-dot" style="background:#4F5D95"></span>PHP</div>
-        <div class="project-updated">2 weeks ago</div>
+      <div class="proj-name">Tradia</div>
+      <div class="proj-url">🔗 tradia.co.nz</div>
+      <div class="proj-desc">All-in-one New Zealand marketplace — buy, sell, swap, make offers, and browse retail shop catalogs. Covers individual listings and full business storefronts in one platform.</div>
+      <div class="proj-foot">
+        <div class="proj-lang"><span class="ldot" style="background:#4F5D95"></span>PHP</div>
+        <div class="proj-time">2 weeks ago</div>
       </div>
     </a>
 
-    <a href="https://www.getjobdone.co.nz" target="_blank" class="project-card fade" data-cat="product web">
-      <div class="project-top">
-        <div class="project-icon-wrap">🔨</div>
-        <div class="project-badges"><span class="badge badge-live">Live</span><span class="badge badge-private">Private</span></div>
+    <a href="https://www.getjobdone.co.nz" target="_blank" class="proj-card fade" data-cat="product web">
+      <div class="proj-top">
+        <div class="proj-icon">🔨</div>
+        <div class="proj-badges"><span class="bdg bdg-live">Live</span><span class="bdg bdg-priv">Private</span></div>
       </div>
-      <div class="project-name">GetJobDone</div>
-      <div class="project-url">getjobdone.co.nz ↗</div>
-      <div class="project-desc">Service marketplace for NZ — post a job, receive provider quotes, compare, hire, and review. Connecting people with tasks to skilled providers nationwide.</div>
-      <div class="project-footer">
-        <div class="project-lang"><span class="lang-dot" style="background:#4F5D95"></span>PHP</div>
-        <div class="project-updated">2 weeks ago</div>
-      </div>
-    </a>
-
-    <a href="https://www.jobready.co.nz" target="_blank" class="project-card fade" data-cat="product ai">
-      <div class="project-top">
-        <div class="project-icon-wrap">🎯</div>
-        <div class="project-badges"><span class="badge badge-live">Live</span><span class="badge badge-private">Private</span></div>
-      </div>
-      <div class="project-name">JobReady — AI Career Planner</div>
-      <div class="project-url">jobready.co.nz ↗</div>
-      <div class="project-desc">AI-assisted career planning — personalised roadmaps, skill gap analysis, and job market guidance for NZ job seekers using LLM-powered insights.</div>
-      <div class="project-footer">
-        <div class="project-lang"><span class="lang-dot" style="background:#3178c6"></span>TypeScript</div>
-        <div class="project-updated">4 hours ago</div>
+      <div class="proj-name">GetJobDone</div>
+      <div class="proj-url">🔗 getjobdone.co.nz</div>
+      <div class="proj-desc">Service marketplace for NZ — post a job, receive provider quotes, compare, hire, and leave reviews. Connecting people who need things done with skilled providers nationwide.</div>
+      <div class="proj-foot">
+        <div class="proj-lang"><span class="ldot" style="background:#4F5D95"></span>PHP</div>
+        <div class="proj-time">2 weeks ago</div>
       </div>
     </a>
 
-    <a href="#" class="project-card fade" data-cat="product ai">
-      <div class="project-top">
-        <div class="project-icon-wrap">🎓</div>
-        <div class="project-badges"><span class="badge badge-live">Live</span><span class="badge badge-private">Private</span></div>
+    <a href="https://www.jobready.co.nz" target="_blank" class="proj-card fade" data-cat="product ai">
+      <div class="proj-top">
+        <div class="proj-icon">🎯</div>
+        <div class="proj-badges"><span class="bdg bdg-live">Live</span><span class="bdg bdg-priv">Private</span></div>
       </div>
-      <div class="project-name">Student Career Plan</div>
-      <div class="project-url">studentcareerplan.nz</div>
-      <div class="project-desc">Career platform for students and teachers — students explore job pathways and build plans, teachers guide and track student career development together.</div>
-      <div class="project-footer">
-        <div class="project-lang"><span class="lang-dot" style="background:#4F5D95"></span>PHP</div>
-        <div class="project-updated">3 weeks ago</div>
-      </div>
-    </a>
-
-    <a href="https://github.com/siliney/Ai-Chatbot-Multi-Tenants" target="_blank" class="project-card fade" data-cat="ai">
-      <div class="project-top">
-        <div class="project-icon-wrap">🤖</div>
-        <div class="project-badges"><span class="badge badge-private">Private</span></div>
-      </div>
-      <div class="project-name">AI Chatbot Multi-Tenants</div>
-      <div class="project-url">github.com/siliney ↗</div>
-      <div class="project-desc">Multi-tenant AI chatbot — each tenant gets isolated context, custom knowledge base, and a personalised agent. Scalable orchestration in TypeScript.</div>
-      <div class="project-footer">
-        <div class="project-lang"><span class="lang-dot" style="background:#3178c6"></span>TypeScript</div>
-        <div class="project-updated">4 days ago</div>
+      <div class="proj-name">JobReady — AI Career Planner</div>
+      <div class="proj-url">🔗 jobready.co.nz</div>
+      <div class="proj-desc">AI-assisted career planning platform — personalised roadmaps, skill gap analysis, and job market guidance for NZ job seekers powered by LLM integration.</div>
+      <div class="proj-foot">
+        <div class="proj-lang"><span class="ldot" style="background:#3178c6"></span>TypeScript</div>
+        <div class="proj-time">4 hours ago</div>
       </div>
     </a>
 
-    <a href="https://github.com/siliney/terraform-learning-journey" target="_blank" class="project-card fade" data-cat="cloud">
-      <div class="project-top">
-        <div class="project-icon-wrap">🏗️</div>
-        <div class="project-badges"><span class="badge badge-public">Public</span></div>
+    <a href="#" class="proj-card fade" data-cat="product ai">
+      <div class="proj-top">
+        <div class="proj-icon">🎓</div>
+        <div class="proj-badges"><span class="bdg bdg-live">Live</span><span class="bdg bdg-priv">Private</span></div>
       </div>
-      <div class="project-name">Terraform Learning Journey</div>
-      <div class="project-url">github.com/siliney ↗</div>
-      <div class="project-desc">Infrastructure as Code with Terraform — hands-on exercises covering real-world AWS provisioning patterns from fundamentals to production-grade modules.</div>
-      <div class="project-footer">
-        <div class="project-lang"><span class="lang-dot" style="background:#844fba"></span>HCL</div>
-        <div class="project-updated">Public</div>
-      </div>
-    </a>
-
-    <a href="https://github.com/siliney/Learning-DevOp" target="_blank" class="project-card fade" data-cat="devops">
-      <div class="project-top">
-        <div class="project-icon-wrap">🔧</div>
-        <div class="project-badges"><span class="badge badge-public">Public</span></div>
-      </div>
-      <div class="project-name">Learning DevOps</div>
-      <div class="project-url">github.com/siliney ↗</div>
-      <div class="project-desc">Comprehensive Cloud DevOps guide — CI/CD pipelines, container orchestration, scripting, and hands-on projects from zero to production deployment.</div>
-      <div class="project-footer">
-        <div class="project-lang"><span class="lang-dot" style="background:#89e051"></span>Shell</div>
-        <div class="project-updated">Public</div>
+      <div class="proj-name">Student Career Plan</div>
+      <div class="proj-url">🔗 studentcareerplan.nz</div>
+      <div class="proj-desc">Career platform for students and teachers — students explore job pathways and build career plans while teachers guide and track student career development.</div>
+      <div class="proj-foot">
+        <div class="proj-lang"><span class="ldot" style="background:#4F5D95"></span>PHP</div>
+        <div class="proj-time">3 weeks ago</div>
       </div>
     </a>
 
-    <a href="https://github.com/siliney/Terraform-LocalStak" target="_blank" class="project-card fade" data-cat="cloud">
-      <div class="project-top">
-        <div class="project-icon-wrap">🔬</div>
-        <div class="project-badges"><span class="badge badge-public">Public</span></div>
+    <a href="https://github.com/siliney/Ai-Chatbot-Multi-Tenants" target="_blank" class="proj-card fade" data-cat="ai">
+      <div class="proj-top">
+        <div class="proj-icon">🤖</div>
+        <div class="proj-badges"><span class="bdg bdg-priv">Private</span></div>
       </div>
-      <div class="project-name">Terraform LocalStack</div>
-      <div class="project-url">github.com/siliney ↗</div>
-      <div class="project-desc">Local AWS simulation with LocalStack + Terraform — build and test cloud infrastructure locally without touching live AWS accounts or incurring costs.</div>
-      <div class="project-footer">
-        <div class="project-lang"><span class="lang-dot" style="background:#844fba"></span>HCL</div>
-        <div class="project-updated">Public</div>
+      <div class="proj-name">AI Chatbot Multi-Tenants</div>
+      <div class="proj-url">🔗 github.com/siliney</div>
+      <div class="proj-desc">Multi-tenant AI chatbot — each tenant gets isolated context, a custom knowledge base, and a personalised agent. Scalable orchestration built in TypeScript.</div>
+      <div class="proj-foot">
+        <div class="proj-lang"><span class="ldot" style="background:#3178c6"></span>TypeScript</div>
+        <div class="proj-time">4 days ago</div>
+      </div>
+    </a>
+
+    <a href="https://github.com/siliney/terraform-learning-journey" target="_blank" class="proj-card fade" data-cat="cloud">
+      <div class="proj-top">
+        <div class="proj-icon">🏗️</div>
+        <div class="proj-badges"><span class="bdg bdg-pub">Public</span></div>
+      </div>
+      <div class="proj-name">Terraform Learning Journey</div>
+      <div class="proj-url">🔗 github.com/siliney</div>
+      <div class="proj-desc">Infrastructure as Code with Terraform — hands-on exercises covering AWS provisioning patterns from fundamentals to production-grade module design.</div>
+      <div class="proj-foot">
+        <div class="proj-lang"><span class="ldot" style="background:#844fba"></span>HCL</div>
+        <div class="proj-time">Public</div>
+      </div>
+    </a>
+
+    <a href="https://github.com/siliney/Learning-DevOp" target="_blank" class="proj-card fade" data-cat="devops">
+      <div class="proj-top">
+        <div class="proj-icon">🔧</div>
+        <div class="proj-badges"><span class="bdg bdg-pub">Public</span></div>
+      </div>
+      <div class="proj-name">Learning DevOps</div>
+      <div class="proj-url">🔗 github.com/siliney</div>
+      <div class="proj-desc">Comprehensive Cloud DevOps guide — CI/CD pipelines, container orchestration, shell scripting, and hands-on projects from fundamentals to production.</div>
+      <div class="proj-foot">
+        <div class="proj-lang"><span class="ldot" style="background:#89e051"></span>Shell</div>
+        <div class="proj-time">Public</div>
+      </div>
+    </a>
+
+    <a href="https://github.com/siliney/Terraform-LocalStak" target="_blank" class="proj-card fade" data-cat="cloud">
+      <div class="proj-top">
+        <div class="proj-icon">🔬</div>
+        <div class="proj-badges"><span class="bdg bdg-pub">Public</span></div>
+      </div>
+      <div class="proj-name">Terraform LocalStack</div>
+      <div class="proj-url">🔗 github.com/siliney</div>
+      <div class="proj-desc">Local AWS simulation with LocalStack + Terraform — build and test full cloud infrastructure locally without live AWS accounts or any cost.</div>
+      <div class="proj-foot">
+        <div class="proj-lang"><span class="ldot" style="background:#844fba"></span>HCL</div>
+        <div class="proj-time">Public</div>
       </div>
     </a>
 
@@ -800,66 +519,66 @@ footer {
 
 <!-- EXPERIENCE -->
 <div id="experience">
-<div class="section">
-  <div class="section-header fade">
-    <div class="section-eyebrow">03 — Experience</div>
-    <h2>Work History</h2>
-    <div class="section-divider"></div>
+<div class="sec">
+  <div class="sec-head fade">
+    <div class="sec-eyebrow">03 — Experience</div>
+    <h2 class="sec-title">Work History</h2>
+    <p class="sec-sub">20+ years of real-world IT ownership across retail, enterprise, and cloud environments.</p>
   </div>
   <div class="exp-list">
 
     <div class="exp-card fade">
-      <div class="exp-header">
+      <div class="exp-head">
         <div class="exp-role">Records &amp; Information Systems</div>
         <div class="exp-period">Jul 2025 – Jan 2026</div>
       </div>
       <div class="exp-company">Crown Information Management — Auckland, NZ</div>
-      <div class="exp-points">
-        <div class="exp-point">Operated the O'Neil Records Management System — metadata updates, indexing, and database accuracy</div>
-        <div class="exp-point">Ensured data integrity, audit trails, and chain-of-custody compliance across physical and digital records</div>
-        <div class="exp-point">Coordinated system accuracy between warehouse inventory and enterprise platforms</div>
+      <div class="exp-pts">
+        <div class="exp-pt">Operated the O'Neil Records Management System — metadata updates, indexing, and database accuracy</div>
+        <div class="exp-pt">Ensured data integrity, audit trails, and chain-of-custody compliance across physical and digital records</div>
+        <div class="exp-pt">Coordinated system accuracy between warehouse inventory and enterprise platforms</div>
       </div>
     </div>
 
     <div class="exp-card fade">
-      <div class="exp-header">
+      <div class="exp-head">
         <div class="exp-role">Business Partner | IT &amp; Systems Owner</div>
         <div class="exp-period">Apr 2011 – Nov 2024</div>
       </div>
       <div class="exp-company">VEGELAND Market Ltd — Auckland, NZ · 13 years</div>
-      <div class="exp-points">
-        <div class="exp-point">Owned and supported all IT systems for a live retail business operating 7 days a week</div>
-        <div class="exp-point">Managed Windows desktops, POS terminals, EFTPOS systems, barcode scanners, and local network infrastructure</div>
-        <div class="exp-point">Implemented Shopify e-commerce — aligning inventory, pricing, and online sales</div>
-        <div class="exp-point">Coordinated vendors, ISPs, payment providers, and hardware suppliers</div>
-        <div class="exp-point">Supported business continuity during COVID through full digital transformation</div>
+      <div class="exp-pts">
+        <div class="exp-pt">Owned and supported all IT systems for a live retail business operating 7 days a week</div>
+        <div class="exp-pt">Managed Windows desktops, POS terminals, EFTPOS systems, barcode scanners, and local network infrastructure</div>
+        <div class="exp-pt">Implemented Shopify e-commerce — aligning inventory, pricing, and online sales</div>
+        <div class="exp-pt">Coordinated vendors, ISPs, payment providers, and hardware suppliers</div>
+        <div class="exp-pt">Supported business continuity during COVID through full digital transformation</div>
       </div>
-      <div class="exp-achievement">Led digital transformation managing 1,000+ inventory items, improving system reliability, and enabling sustained online sales growth.</div>
+      <div class="exp-ach">✦ Led digital transformation managing 1,000+ inventory items, improving system reliability, and enabling sustained online sales growth.</div>
     </div>
 
     <div class="exp-card fade">
-      <div class="exp-header">
+      <div class="exp-head">
         <div class="exp-role">Freelance IT Support | Desktop &amp; Systems Technician</div>
         <div class="exp-period">2018 – Present</div>
       </div>
       <div class="exp-company">Self-Employed — Auckland, NZ</div>
-      <div class="exp-points">
-        <div class="exp-point">Built, deployed, and supported business desktops and laptops across multiple clients</div>
-        <div class="exp-point">Performed SSD migrations, data recovery, fault isolation, and OS installations</div>
-        <div class="exp-point">Troubleshot network issues — DNS, IP conflicts, Wi-Fi, and router faults</div>
+      <div class="exp-pts">
+        <div class="exp-pt">Built, deployed, and supported business desktops and laptops across multiple clients</div>
+        <div class="exp-pt">Performed SSD migrations, data recovery, fault isolation, and OS installations</div>
+        <div class="exp-pt">Troubleshot network issues — DNS, IP conflicts, Wi-Fi, and router faults</div>
       </div>
     </div>
 
     <div class="exp-card fade">
-      <div class="exp-header">
+      <div class="exp-head">
         <div class="exp-role">IT Consultant · Hosting Engineer · Academic Instructor</div>
         <div class="exp-period">2000 – 2010</div>
       </div>
       <div class="exp-company">International &amp; Public-Sector Environments</div>
-      <div class="exp-points">
-        <div class="exp-point">Senior technical roles across server and hosting platforms, web and database systems</div>
-        <div class="exp-point">Supported enterprise, NGO, and university IT environments internationally</div>
-        <div class="exp-point">Academic instructor delivering IT curriculum — strong communication and documentation skills</div>
+      <div class="exp-pts">
+        <div class="exp-pt">Senior technical roles across server and hosting platforms, web and database systems</div>
+        <div class="exp-pt">Supported enterprise, NGO, and university IT environments internationally</div>
+        <div class="exp-pt">Academic instructor delivering IT curriculum across university environments</div>
       </div>
     </div>
 
@@ -868,57 +587,57 @@ footer {
 </div>
 
 <!-- EDUCATION -->
-<div id="education" class="section-alt">
-<div class="section">
-  <div class="section-header fade">
-    <div class="section-eyebrow">04 — Education &amp; Certifications</div>
-    <h2>Qualifications</h2>
-    <div class="section-divider"></div>
+<div id="education" class="sec-alt">
+<div class="sec">
+  <div class="sec-head fade">
+    <div class="sec-eyebrow">04 — Education &amp; Certifications</div>
+    <h2 class="sec-title">Qualifications</h2>
+    <p class="sec-sub">NZQA-recognised qualifications backed by internationally recognised certifications.</p>
   </div>
   <div class="edu-grid">
 
-    <div class="edu-card featured fade">
-      <div class="edu-badge edu-badge-aws">AWS Certified</div>
+    <div class="edu-card feat-gold fade">
+      <div class="edu-bdg edu-bdg-aws">🏆 AWS Certified</div>
       <div class="edu-title">AWS Certified Cloud Practitioner</div>
       <div class="edu-inst">Amazon Web Services</div>
       <div class="edu-detail">Issued Feb 16, 2026 · Valid to Feb 2029</div>
-      <div class="edu-detail" style="margin-top:4px;font-size:0.8rem;color:var(--muted)">ID: ad7bbb19705f4d7b9590d20ff7b1e353</div>
+      <div class="edu-detail" style="margin-top:5px;font-size:0.78rem;color:var(--muted)">ID: ad7bbb19705f4d7b9590d20ff7b1e353</div>
     </div>
 
-    <div class="edu-card featured fade">
-      <div class="edu-badge edu-badge-diploma">NZQA Level 7</div>
+    <div class="edu-card feat fade">
+      <div class="edu-bdg edu-bdg-diploma">✦ NZQA Level 7</div>
       <div class="edu-title">Diploma in Cloud Engineering</div>
       <div class="edu-inst">Yoobee College of Creative Innovation — Auckland · 2024–2025</div>
       <div class="edu-detail">Completed 20 Oct 2025 · 120 credits · 100% complete</div>
       <div class="grade-row">
-        <span class="grade-chip">DCE01 PaaS/SaaS — A+</span>
-        <span class="grade-chip">DCE02 IaaS — A+</span>
-        <span class="grade-chip">DCE03 Open Source — A+</span>
-        <span class="grade-chip">DCE04 Multi-Cloud — A+</span>
+        <span class="gchip">PaaS/SaaS — A+</span>
+        <span class="gchip">IaaS — A+</span>
+        <span class="gchip">Open Source — A+</span>
+        <span class="gchip">Multi-Cloud — A+</span>
       </div>
     </div>
 
     <div class="edu-card fade">
-      <div class="edu-badge edu-badge-masters">Master's · NZQA Level 9</div>
+      <div class="edu-bdg edu-bdg-masters">🎓 Master's · NZQA Level 9</div>
       <div class="edu-title">MSc Global Information &amp; Telecommunication Studies</div>
       <div class="edu-inst">Waseda University — Tokyo, Japan · 2003–2005</div>
       <div class="edu-detail">Graduate School of Global Information &amp; Telecom Studies</div>
     </div>
 
     <div class="edu-card fade">
-      <div class="edu-badge edu-badge-degree">Bachelor's · NZQA Level 7</div>
+      <div class="edu-bdg edu-bdg-deg">Bachelor's · NZQA Level 7</div>
       <div class="edu-title">Bachelor of Computer Science</div>
       <div class="edu-inst">Royal University of Phnom Penh — Cambodia</div>
     </div>
 
     <div class="edu-card fade">
-      <div class="edu-badge edu-badge-degree">Bachelor's · NZQA Level 7</div>
+      <div class="edu-bdg edu-bdg-deg">Bachelor's · NZQA Level 7</div>
       <div class="edu-title">Bachelor of Mathematics</div>
       <div class="edu-inst">Royal University of Phnom Penh — Cambodia</div>
     </div>
 
     <div class="edu-card fade">
-      <div class="edu-badge edu-badge-degree">Memberships</div>
+      <div class="edu-bdg edu-bdg-deg">Memberships</div>
       <div class="edu-title">AWS &amp; Azure Academy Badges</div>
       <div class="edu-inst">Cloud Practitioner · Architect · SysOps</div>
       <div class="edu-detail" style="margin-top:10px">Member — Engineering Institution of Cambodia (IT Committee)</div>
@@ -931,85 +650,117 @@ footer {
 
 <!-- CONTACT -->
 <div id="contact">
-<div class="section">
-  <div class="section-header fade">
-    <div class="section-eyebrow">05 — Contact</div>
-    <h2>Get in Touch</h2>
-    <div class="section-divider"></div>
+<div class="sec">
+  <div class="sec-head fade">
+    <div class="sec-eyebrow">05 — Contact</div>
+    <h2 class="sec-title">Get in Touch</h2>
+    <p class="sec-sub">Open to cloud architecture roles, AI product collaborations, and multi-cloud conversations across NZ.</p>
   </div>
-  <div class="contact-grid">
-    <div class="contact-left fade">
-      <p>Open to cloud architecture roles, AI product collaborations, and conversations about multi-cloud systems across New Zealand. NZ Citizen · Auckland · Available now.</p>
+  <div class="contact-wrap">
+
+    <div class="fade">
       <div class="contact-links">
-        <a href="tel:+64211778778" class="contact-link"><span class="contact-icon">📞</span>021 177 8778</a>
-        <a href="mailto:ysiline@gmail.com" class="contact-link"><span class="contact-icon">✉️</span>ysiline@gmail.com</a>
-        <a href="https://linkedin.com/in/mkhmer" target="_blank" class="contact-link"><span class="contact-icon">💼</span>linkedin.com/in/mkhmer</a>
-        <a href="https://github.com/siliney" target="_blank" class="contact-link"><span class="contact-icon">💻</span>github.com/siliney</a>
-        <a href="resume.pdf" download class="contact-link" style="border-color:#ffc899;color:var(--orange)"><span class="contact-icon">📄</span>Download Resume (PDF)</a>
+        <a href="tel:+64211778778" class="clink">
+          <div class="clink-icon">📞</div>
+          <span class="clink-label">021 177 8778</span>
+          <span class="clink-arrow">→</span>
+        </a>
+        <a href="mailto:ysiline@gmail.com" class="clink">
+          <div class="clink-icon">✉️</div>
+          <span class="clink-label">ysiline@gmail.com</span>
+          <span class="clink-arrow">→</span>
+        </a>
+
+        <a href="https://linkedin.com/in/mkhmer" target="_blank" class="clink">
+          <div class="clink-icon">💼</div>
+          <span class="clink-label">linkedin.com/in/mkhmer</span>
+          <span class="clink-arrow">→</span>
+        </a>
+        <a href="https://github.com/siliney" target="_blank" class="clink">
+          <div class="clink-icon">💻</div>
+          <span class="clink-label">github.com/siliney</span>
+          <span class="clink-arrow">→</span>
+        </a>
+        <a href="resume.pdf" download class="clink" style="border-color:var(--royal-mid);color:var(--royal)">
+          <div class="clink-icon" style="background:var(--royal);color:white">📄</div>
+          <span class="clink-label">Download Resume (PDF)</span>
+          <span class="clink-arrow">↓</span>
+        </a>
       </div>
     </div>
-    <div class="info-card fade">
-      <h3>Quick Profile</h3>
-      <div class="info-row">
-        <div class="info-item">
-          <div class="info-label">Location</div>
-          <div class="info-value">Auckland, New Zealand</div>
+
+    <div class="profile-card fade">
+      <div class="profile-photo-row">
+        <img src="photo.jpg" alt="SILINE Y" class="profile-photo">
+        <div>
+          <div class="profile-photo-name">SILINE Y</div>
+          <div class="profile-photo-title">Cloud Architect &amp; AI Builder</div>
         </div>
-        <div class="info-divider"></div>
-        <div class="info-item">
-          <div class="info-label">Status</div>
-          <div class="info-value">NZ Citizen · Available Now</div>
+      </div>
+      <div class="profile-rows">
+        <div class="profile-row">
+          <div class="prow-label">Location</div>
+          <div class="prow-val">Auckland, New Zealand</div>
         </div>
-        <div class="info-divider"></div>
-        <div class="info-item">
-          <div class="info-label">Experience</div>
-          <div class="info-value">20+ years IT &amp; Systems</div>
+        <div class="prow-divider"></div>
+        <div class="profile-row">
+          <div class="prow-label">Citizenship</div>
+          <div class="prow-val">🇳🇿 NZ Citizen · Available Now</div>
         </div>
-        <div class="info-divider"></div>
-        <div class="info-item">
-          <div class="info-label">Latest Cert</div>
-          <div class="info-value">AWS Cloud Practitioner · 2026</div>
+        <div class="prow-divider"></div>
+        <div class="profile-row">
+          <div class="prow-label">Experience</div>
+          <div class="prow-val">20+ years IT &amp; Systems</div>
         </div>
-        <div class="info-divider"></div>
-        <div class="info-item">
-          <div class="info-label">Diploma</div>
-          <div class="info-value">Cloud Engineering L7 · All A+</div>
+        <div class="prow-divider"></div>
+        <div class="profile-row">
+          <div class="prow-label">Latest Cert</div>
+          <div class="prow-val">AWS Cloud Practitioner · Feb 2026</div>
         </div>
-        <div class="info-divider"></div>
-        <div class="info-item">
-          <div class="info-label">Live Products</div>
-          <div class="info-value">tradia.co.nz · getjobdone.co.nz · jobready.co.nz</div>
+        <div class="prow-divider"></div>
+        <div class="profile-row">
+          <div class="prow-label">Diploma</div>
+          <div class="prow-val">Cloud Engineering L7 · All A+</div>
+        </div>
+        <div class="prow-divider"></div>
+        <div class="profile-row">
+          <div class="prow-label">Live Products</div>
+          <div class="prow-val">tradia · getjobdone · jobready</div>
         </div>
       </div>
     </div>
+
   </div>
 </div>
 </div>
 
 <!-- FOOTER -->
 <footer>
-  <div class="footer-left">© 2026 <span>SILINE Y</span> · Auckland, NZ · NZ Citizen · Available now</div>
-  <div class="footer-links">
+  <div class="foot-brand">
+    <div class="foot-mark">SY</div>
+    <div class="foot-text">© 2026 <span>SILINE Y</span> · Auckland, NZ · NZ Citizen</div>
+  </div>
+  <div class="foot-links">
     <a href="https://linkedin.com/in/mkhmer" target="_blank">LinkedIn</a>
     <a href="https://github.com/siliney" target="_blank">GitHub</a>
+    <a href="https://www.tradia.co.nz" target="_blank">Tradia</a>
     <a href="resume.pdf" download>Resume</a>
   </div>
 </footer>
 
 <script>
-function filter(cat, btn) {
-  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-  btn.classList.add('active');
-  document.querySelectorAll('.project-card').forEach(card => {
-    if (cat === 'all') { card.classList.remove('hidden'); return; }
-    card.classList.toggle('hidden', !(card.dataset.cat || '').split(' ').includes(cat));
+function fp(cat, btn) {
+  document.querySelectorAll('.fbtn').forEach(b => b.classList.remove('on'));
+  btn.classList.add('on');
+  document.querySelectorAll('.proj-card').forEach(c => {
+    if (cat === 'all') { c.classList.remove('hidden'); return; }
+    c.classList.toggle('hidden', !(c.dataset.cat || '').split(' ').includes(cat));
   });
 }
-
-const observer = new IntersectionObserver(entries => {
-  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
-}, { threshold: 0.08 });
-document.querySelectorAll('.fade').forEach(el => observer.observe(el));
+const obs = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('vis'); });
+}, { threshold: 0.07 });
+document.querySelectorAll('.fade').forEach(el => obs.observe(el));
 </script>
 </body>
 </html>
