@@ -1,0 +1,1378 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Solutions Architect — Full Learning Guide</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,300;0,600;0,900;1,300;1,600&family=JetBrains+Mono:wght@400;500;600&family=Mulish:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #0d1117;
+  --surface: #161b22;
+  --surface2: #1c2128;
+  --border: #30363d;
+  --text: #e6edf3;
+  --muted: #7d8590;
+  --orange: #f0883e;
+  --orange-dim: #3d2012;
+  --blue: #58a6ff;
+  --blue-dim: #0d2044;
+  --green: #3fb950;
+  --green-dim: #0f2d18;
+  --purple: #bc8cff;
+  --purple-dim: #1f1035;
+  --yellow: #d29922;
+  --yellow-dim: #2d2007;
+  --red: #f85149;
+  --red-dim: #2d0f0e;
+  --teal: #39d0d8;
+  --teal-dim: #0d2d30;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'Mulish', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.6;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+
+/* Layout */
+.app { display: flex; min-height: 100vh; }
+
+/* Sidebar */
+.sidebar {
+  width: 280px;
+  flex-shrink: 0;
+  background: var(--surface);
+  border-right: 1px solid var(--border);
+  position: fixed;
+  top: 0; left: 0; bottom: 0;
+  overflow-y: auto;
+  z-index: 100;
+}
+
+.sidebar-header {
+  padding: 24px 20px 16px;
+  border-bottom: 1px solid var(--border);
+}
+
+.sidebar-logo {
+  font-family: 'Fraunces', serif;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--orange);
+  margin-bottom: 4px;
+}
+
+.sidebar-sub {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.62rem;
+  color: var(--muted);
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+/* Progress in sidebar */
+.sidebar-progress {
+  padding: 16px 20px;
+  border-bottom: 1px solid var(--border);
+}
+
+.sp-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.62rem;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 8px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.sp-bar {
+  height: 3px;
+  background: var(--border);
+  border-radius: 999px;
+  overflow: hidden;
+  margin-bottom: 6px;
+}
+
+.sp-bar-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--orange), var(--yellow));
+  border-radius: 999px;
+  transition: width 0.5s ease;
+}
+
+.sp-counts {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.65rem;
+  color: var(--muted);
+}
+
+/* Nav items */
+.nav-section { padding: 12px 0; }
+
+.nav-week {
+  padding: 8px 20px;
+  cursor: pointer;
+  transition: background 0.15s;
+  border-left: 3px solid transparent;
+}
+
+.nav-week:hover { background: var(--surface2); }
+.nav-week.active {
+  background: var(--surface2);
+  border-left-color: var(--orange);
+}
+
+.nav-week-range {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.6rem;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 2px;
+}
+
+.nav-week-title {
+  font-size: 0.82rem;
+  font-weight: 500;
+  color: var(--text);
+}
+
+.nav-week-prog {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.6rem;
+  margin-top: 4px;
+}
+
+/* Main content */
+.main {
+  margin-left: 280px;
+  flex: 1;
+  min-height: 100vh;
+}
+
+/* Top bar */
+.topbar {
+  position: sticky;
+  top: 0;
+  background: var(--bg);
+  border-bottom: 1px solid var(--border);
+  padding: 14px 40px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  z-index: 50;
+  backdrop-filter: blur(8px);
+}
+
+.topbar-title {
+  font-family: 'Fraunces', serif;
+  font-size: 1.05rem;
+  font-weight: 600;
+}
+
+.topbar-week {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.7rem;
+  color: var(--muted);
+}
+
+/* Content area */
+.content {
+  padding: 40px;
+  max-width: 860px;
+}
+
+/* Week header */
+.week-hero {
+  margin-bottom: 36px;
+  padding-bottom: 28px;
+  border-bottom: 1px solid var(--border);
+}
+
+.week-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 4px 12px;
+  border-radius: 999px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.65rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 12px;
+}
+
+.week-hero h2 {
+  font-family: 'Fraunces', serif;
+  font-size: clamp(1.6rem, 3vw, 2.2rem);
+  font-weight: 900;
+  line-height: 1.1;
+  margin-bottom: 12px;
+}
+
+.week-desc {
+  color: var(--muted);
+  font-size: 0.9rem;
+  max-width: 600px;
+  line-height: 1.65;
+}
+
+/* Objective card */
+.obj-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  margin-bottom: 20px;
+  overflow: hidden;
+  transition: border-color 0.2s;
+}
+
+.obj-card:hover { border-color: var(--orange); }
+.obj-card.completed { border-color: var(--green); opacity: 0.8; }
+
+.obj-card-top {
+  padding: 20px 24px;
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+  cursor: pointer;
+}
+
+.obj-checkbox {
+  width: 22px;
+  height: 22px;
+  border-radius: 5px;
+  border: 2px solid var(--border);
+  flex-shrink: 0;
+  margin-top: 2px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  transition: all 0.2s;
+  cursor: pointer;
+}
+
+.obj-card.completed .obj-checkbox {
+  background: var(--green);
+  border-color: var(--green);
+  color: #000;
+}
+
+.obj-top-right { flex: 1; }
+
+.obj-title {
+  font-size: 0.95rem;
+  font-weight: 600;
+  line-height: 1.4;
+  margin-bottom: 6px;
+}
+
+.obj-card.completed .obj-title {
+  color: var(--muted);
+  text-decoration: line-through;
+}
+
+.obj-meta {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.obj-tag {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.6rem;
+  padding: 2px 8px;
+  border-radius: 3px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.expand-btn {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.65rem;
+  color: var(--muted);
+  background: none;
+  border: 1px solid var(--border);
+  padding: 3px 10px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.15s;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.expand-btn:hover { border-color: var(--orange); color: var(--orange); }
+
+/* Learning content panel */
+.obj-content {
+  display: none;
+  border-top: 1px solid var(--border);
+}
+
+.obj-card.expanded .obj-content { display: block; }
+
+.content-tabs {
+  display: flex;
+  border-bottom: 1px solid var(--border);
+  background: var(--surface2);
+  overflow-x: auto;
+}
+
+.tab-btn {
+  padding: 10px 20px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.68rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--muted);
+  background: none;
+  border: none;
+  border-bottom: 2px solid transparent;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.15s;
+}
+
+.tab-btn:hover { color: var(--text); }
+.tab-btn.active { color: var(--orange); border-bottom-color: var(--orange); }
+
+.tab-panel { display: none; padding: 24px; }
+.tab-panel.active { display: block; }
+
+/* Content styles */
+.learn-section { margin-bottom: 24px; }
+
+.learn-section h4 {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.68rem;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  color: var(--orange);
+  margin-bottom: 10px;
+}
+
+.learn-section p {
+  font-size: 0.875rem;
+  color: var(--muted);
+  line-height: 1.7;
+  margin-bottom: 8px;
+}
+
+.learn-section p strong { color: var(--text); }
+
+.concept-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.concept-item {
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 12px 16px;
+}
+
+.concept-item .concept-name {
+  font-weight: 600;
+  font-size: 0.85rem;
+  color: var(--blue);
+  margin-bottom: 4px;
+}
+
+.concept-item .concept-desc {
+  font-size: 0.8rem;
+  color: var(--muted);
+  line-height: 1.6;
+}
+
+/* Code block */
+.code-block {
+  background: #010409;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 16px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.75rem;
+  color: #c9d1d9;
+  overflow-x: auto;
+  line-height: 1.6;
+  margin: 10px 0;
+  white-space: pre;
+}
+
+.code-comment { color: #6e7681; }
+.code-key { color: #ff7b72; }
+.code-val { color: #a5d6ff; }
+.code-str { color: #a8d8a8; }
+
+/* Lab steps */
+.lab-steps {
+  counter-reset: step;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.lab-step {
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+}
+
+.lab-step::before {
+  counter-increment: step;
+  content: counter(step);
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: var(--orange-dim);
+  color: var(--orange);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.72rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+.lab-step-body { flex: 1; }
+.lab-step-title { font-weight: 600; font-size: 0.875rem; margin-bottom: 4px; }
+.lab-step-desc { font-size: 0.8rem; color: var(--muted); line-height: 1.6; }
+
+/* Exam tips */
+.exam-tips { display: flex; flex-direction: column; gap: 10px; }
+
+.exam-tip {
+  display: flex;
+  gap: 12px;
+  padding: 12px 16px;
+  border-radius: 6px;
+  border: 1px solid;
+}
+
+.exam-tip.warn {
+  background: var(--yellow-dim);
+  border-color: var(--yellow);
+}
+
+.exam-tip.good {
+  background: var(--green-dim);
+  border-color: var(--green);
+}
+
+.exam-tip.info {
+  background: var(--blue-dim);
+  border-color: var(--blue);
+}
+
+.exam-tip-icon { font-size: 1rem; flex-shrink: 0; }
+.exam-tip-text { font-size: 0.82rem; line-height: 1.6; }
+.exam-tip-text strong { display: block; margin-bottom: 2px; font-size: 0.8rem; }
+
+/* Resources */
+.resource-list { display: flex; flex-direction: column; gap: 8px; }
+
+.resource-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 14px;
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  font-size: 0.82rem;
+  transition: border-color 0.15s;
+}
+
+.resource-item:hover { border-color: var(--blue); }
+
+.resource-type {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.6rem;
+  padding: 2px 6px;
+  border-radius: 3px;
+  flex-shrink: 0;
+}
+
+.resource-name { flex: 1; color: var(--blue); font-weight: 500; }
+.resource-time { font-family: 'JetBrains Mono', monospace; font-size: 0.65rem; color: var(--muted); }
+
+/* Nav buttons */
+.nav-btns {
+  display: flex;
+  gap: 12px;
+  margin-top: 40px;
+  padding-top: 28px;
+  border-top: 1px solid var(--border);
+}
+
+.nav-btn {
+  padding: 10px 24px;
+  border-radius: 6px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  cursor: pointer;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--text);
+  transition: all 0.15s;
+}
+
+.nav-btn:hover { border-color: var(--orange); color: var(--orange); }
+.nav-btn.primary { background: var(--orange); border-color: var(--orange); color: #000; font-weight: 600; }
+.nav-btn.primary:hover { background: #d4731a; }
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.fade-anim { animation: fadeIn 0.35s ease both; }
+
+/* Mobile */
+@media (max-width: 720px) {
+  .sidebar { display: none; }
+  .main { margin-left: 0; }
+  .content { padding: 24px 16px; }
+  .topbar { padding: 14px 16px; }
+}
+</style>
+</head>
+<body>
+<div class="app">
+
+<!-- SIDEBAR -->
+<aside class="sidebar">
+  <div class="sidebar-header">
+    <div class="sidebar-logo">SA Fast-Track</div>
+    <div class="sidebar-sub">Cloud Engineer → Architect</div>
+  </div>
+  <div class="sidebar-progress">
+    <div class="sp-label">
+      <span>Overall Progress</span>
+      <span id="sp-pct">0%</span>
+    </div>
+    <div class="sp-bar"><div class="sp-bar-fill" id="sp-bar-fill" style="width:0%"></div></div>
+    <div class="sp-counts" id="sp-counts">0 of 0 objectives completed</div>
+  </div>
+  <nav class="nav-section" id="sidebar-nav"></nav>
+</aside>
+
+<!-- MAIN -->
+<main class="main">
+  <div class="topbar">
+    <div>
+      <div class="topbar-week" id="topbar-week">Week 1–2</div>
+      <div class="topbar-title" id="topbar-title">Architecture Thinking Mindset</div>
+    </div>
+    <div style="display:flex;gap:8px">
+      <button class="nav-btn" onclick="prevWeek()">← Prev</button>
+      <button class="nav-btn primary" onclick="nextWeek()">Next →</button>
+    </div>
+  </div>
+
+  <div class="content fade-anim" id="content-area"></div>
+</main>
+
+</div>
+
+<script>
+const weeks = [
+  {
+    range: "Weeks 1–2",
+    title: "Architecture Thinking Mindset",
+    color: "#58a6ff",
+    colorDim: "#0d2044",
+    desc: "Shift from 'how do I deploy this' to 'why should I deploy it this way'. This week is about developing the structured decision-making framework that defines professional-level architects.",
+    objectives: [
+      {
+        title: "Apply the AWS Well-Architected Framework (5 pillars) to critique a real architecture",
+        tag: "Framework", tagColor: "#0d2044", tagText: "#58a6ff",
+        learn: {
+          overview: `The <strong>AWS Well-Architected Framework</strong> is the official lens through which Solutions Architects evaluate every design decision. It has 5 pillars — and SAP exam scenarios almost always map to one or more of them.\n\nThink of it as your mental checklist before signing off on any architecture.`,
+          concepts: [
+            { name: "Operational Excellence", desc: "Can you run, monitor, and improve this system over time? Focuses on automation, runbooks, and CI/CD. Key services: CloudFormation, Systems Manager, CloudWatch." },
+            { name: "Security", desc: "Is every layer protected? Apply least privilege, encrypt everything, enable traceability. Key services: IAM, KMS, CloudTrail, GuardDuty." },
+            { name: "Reliability", desc: "Will it recover from failure automatically? Multi-AZ, backups, auto-scaling. Key services: Route 53, ELB, RDS Multi-AZ, S3 versioning." },
+            { name: "Performance Efficiency", desc: "Are you using the right resource type and size? Rightsizing, serverless, caching. Key services: ElastiCache, CloudFront, Lambda." },
+            { name: "Cost Optimization", desc: "Are you paying only for what you need? Reserved instances, Spot, S3 lifecycle policies. Key services: AWS Cost Explorer, Savings Plans." },
+          ],
+          lab: [
+            { title: "Open AWS Well-Architected Tool", desc: "In the AWS Console, search for 'Well-Architected Tool' and create a new Workload." },
+            { title: "Pick a past project", desc: "Choose any app you deployed during Cloud Engineering training (e.g. your VPC + EC2 + RDS setup)." },
+            { title: "Answer the pillar questions", desc: "Work through the WAF questionnaire. You'll get a risk report showing High/Medium risk items — this is your first architecture review!" },
+            { title: "Write up 3 improvements", desc: "For each High Risk finding, write one sentence: what's the risk, what's the fix, what AWS service you'd use. Save this — it's portfolio gold." },
+          ],
+          examTips: [
+            { type: "warn", icon: "⚠️", title: "Most common trap", text: "Questions often have two 'correct' answers — one that meets the requirement, and one that meets it AND aligns with a WAF pillar. Always pick the WAF-aligned one." },
+            { type: "good", icon: "✅", title: "Quick win", text: "Memorise which pillar each AWS service primarily supports. e.g. CloudTrail = Security, Auto Scaling = Reliability, Spot Instances = Cost Optimization." },
+            { type: "info", icon: "💡", title: "Exam weighting", text: "The SAP exam doesn't ask 'what are the pillars' directly — it gives scenarios and expects you to apply pillar thinking implicitly." },
+          ],
+          resources: [
+            { type: "Doc", name: "AWS Well-Architected Framework Whitepaper", time: "2 hrs", typeColor: "#0d2044", typeText: "#58a6ff" },
+            { type: "Tool", name: "AWS Well-Architected Tool (free in console)", time: "1 hr lab", typeColor: "#0f2d18", typeText: "#3fb950" },
+            { type: "Course", name: "Stephane Maarek — SAP-C02 on Udemy (WAF section)", time: "45 min", typeColor: "#1f1035", typeText: "#bc8cff" },
+          ]
+        }
+      },
+      {
+        title: "Explain trade-offs between monolithic, microservices, and serverless with cost/latency examples",
+        tag: "Design", tagColor: "#2d0f0e", tagText: "#f85149",
+        learn: {
+          overview: `Architecture selection is the core skill of a Solutions Architect. You're not just deploying — you're <strong>choosing the right pattern for the constraints</strong>. Every pattern has trade-offs, and the exam will test whether you know when NOT to use a pattern.`,
+          concepts: [
+            { name: "Monolithic", desc: "Single deployable unit. Simple to develop and deploy initially. Becomes hard to scale and maintain as it grows. Best for small teams, early-stage products, or internal tools with low traffic." },
+            { name: "Microservices", desc: "Independently deployable services communicating via APIs or events. High operational complexity but excellent scalability and team autonomy. Needs good observability tooling (X-Ray, CloudWatch). AWS: ECS, EKS, API Gateway." },
+            { name: "Serverless", desc: "No server management. Pay per execution. Cold starts can add latency. Ideal for event-driven, spiky, or async workloads. AWS: Lambda, SQS, EventBridge, Step Functions." },
+            { name: "Cost comparison", desc: "Monolith: predictable (fixed EC2 cost). Microservices: higher base infra cost but efficient at scale. Serverless: near-zero idle cost, but can be expensive at high sustained throughput." },
+          ],
+          lab: [
+            { title: "Draw all 3 patterns", desc: "Using draw.io or Excalidraw, draw the same e-commerce checkout flow implemented as: (1) monolith on EC2, (2) microservices on ECS, (3) serverless with Lambda + API Gateway + DynamoDB." },
+            { title: "Estimate costs", desc: "Use the AWS Pricing Calculator to estimate monthly cost for each at 10,000 requests/day and again at 1,000,000 requests/day. Note where each becomes cheaper or more expensive." },
+            { title: "Identify the inflection point", desc: "Find the traffic level at which serverless becomes more expensive than a reserved EC2 instance. This number appears in real exam scenarios." },
+          ],
+          examTips: [
+            { type: "warn", icon: "⚠️", title: "Common trick", text: "If a question mentions 'unpredictable traffic spikes' → serverless. 'Consistent high throughput 24/7' → EC2 Reserved. Memorise these trigger words." },
+            { type: "good", icon: "✅", title: "Think in constraints", text: "The exam gives you constraints (cost, latency, team size, compliance). Match the pattern to the constraints, not to what's technically impressive." },
+            { type: "info", icon: "💡", title: "Step Functions", text: "For orchestrating microservices with complex workflows, Step Functions is the SAP-preferred answer over custom Lambda chaining." },
+          ],
+          resources: [
+            { type: "Whitepaper", name: "AWS Microservices Whitepaper", time: "1.5 hrs", typeColor: "#0d2044", typeText: "#58a6ff" },
+            { type: "Tool", name: "draw.io (free diagramming)", time: "Lab", typeColor: "#0f2d18", typeText: "#3fb950" },
+            { type: "Video", name: "AWS re:Invent — Serverless vs Containers decision guide", time: "45 min", typeColor: "#2d2007", typeText: "#d29922" },
+          ]
+        }
+      },
+      {
+        title: "Calculate TCO for migrating an on-premises workload to AWS using the Pricing Calculator",
+        tag: "FinOps", tagColor: "#0f2d18", tagText: "#3fb950",
+        learn: {
+          overview: `<strong>Total Cost of Ownership (TCO)</strong> is one of the primary tools architects use to justify cloud migrations to leadership. If you can't quantify the financial benefit, the project doesn't get approved. SAP exams test this heavily in migration scenarios.`,
+          concepts: [
+            { name: "On-premises costs to count", desc: "Hardware purchase/refresh (3–5 yr cycle), data centre space and power, cooling, networking, OS licences, staff for maintenance, and disaster recovery hardware. These are often invisible in IT budgets." },
+            { name: "AWS cost advantages", desc: "Pay-as-you-go (no upfront), Reserved Instances (up to 72% off on-demand), Spot (up to 90% off), no hardware refresh costs, managed services eliminate operational overhead." },
+            { name: "Hidden migration costs", desc: "Refactoring code, retraining staff, data transfer OUT of on-prem (one-time), potential downtime. Always include these — a TCO that ignores migration costs looks dishonest." },
+            { name: "ROI timeline", desc: "Most migrations break even at 18–36 months. Savings accelerate in years 3–5 as on-prem hardware would need refresh. Show a 5-year projection in your business case." },
+          ],
+          lab: [
+            { title: "Open AWS Pricing Calculator", desc: "Go to calculator.aws. Add an EC2 instance (equivalent to your on-prem server spec) + RDS + S3 storage for a typical 3-tier web app." },
+            { title: "Model on-prem baseline", desc: "Estimate the same setup on-prem: 2× physical servers ($8K each, 5yr life), co-location ($500/mo), SAN storage ($15K), plus 20% of a sysadmin's time ($15K/yr)." },
+            { title: "Calculate 3-year and 5-year TCO", desc: "Build a simple spreadsheet comparing total spend. Add Reserved Instance pricing for AWS. Show cumulative cost curves — the point where they cross is your payback period." },
+            { title: "Add intangible benefits", desc: "Note: elasticity value (scale for peaks without buying for peaks), faster time to market, built-in disaster recovery. Architects present these qualitatively alongside the numbers." },
+          ],
+          examTips: [
+            { type: "info", icon: "💡", title: "AWS Migration Evaluator", text: "The exam sometimes mentions AWS Migration Evaluator (formerly TSO Logic) as the tool for automated TCO analysis at enterprise scale — different from the Pricing Calculator." },
+            { type: "good", icon: "✅", title: "Reserved vs On-Demand", text: "For steady workloads, Reserved Instances are always cheaper. The exam expects you to recommend RIs for predictable baseline loads and On-Demand/Spot for variable peaks." },
+            { type: "warn", icon: "⚠️", title: "Data transfer costs", text: "Data transfer OUT of AWS costs money. Data transfer IN is free. This surprises many and appears in cost optimisation questions." },
+          ],
+          resources: [
+            { type: "Tool", name: "AWS Pricing Calculator — calculator.aws", time: "1 hr lab", typeColor: "#0f2d18", typeText: "#3fb950" },
+            { type: "Tool", name: "AWS Migration Evaluator (free assessment)", time: "30 min", typeColor: "#0d2044", typeText: "#58a6ff" },
+            { type: "Doc", name: "AWS Economics Centre — TCO case studies", time: "45 min", typeColor: "#2d2007", typeText: "#d29922" },
+          ]
+        }
+      },
+      {
+        title: "Write an Architecture Decision Record (ADR) for a real design decision",
+        tag: "Communication", tagColor: "#1f1035", tagText: "#bc8cff",
+        learn: {
+          overview: `<strong>Architecture Decision Records</strong> are the written trail of why you made a design choice. Senior architects live by them. They prevent re-litigating old decisions, onboard new team members instantly, and demonstrate architectural maturity to employers and in interviews.`,
+          concepts: [
+            { name: "ADR structure", desc: "Title → Status (Proposed/Accepted/Deprecated) → Context (what's the problem?) → Decision (what did you choose?) → Consequences (trade-offs of this choice)." },
+            { name: "When to write one", desc: "Any decision that's hard to reverse, affects multiple teams, has significant cost implications, or involves a security/compliance consideration warrants an ADR." },
+            { name: "Where to store them", desc: "Typically in the same Git repo as the code, in a /docs/decisions/ folder. This means they evolve with the system and are always findable." },
+          ],
+          lab: [
+            { title: "Pick a real decision from your Cloud Engineering work", desc: "E.g. 'Why did I choose RDS over DynamoDB?' or 'Why did I use EC2 instead of Lambda for the API?'" },
+            { title: "Write the ADR", desc: "Use this template: Title, Date, Status: Accepted, Context: [1 paragraph on the problem], Decision: [1 sentence], Consequences: [3 bullet points — 1 positive, 1 negative, 1 neutral]." },
+            { title: "Write a second ADR for the alternative you rejected", desc: "Mark it Status: Rejected. This shows interviewers you considered options, not just picked the first thing you knew." },
+            { title: "Add to GitHub", desc: "Create a /docs/decisions/ folder in a repo and commit both ADRs. This is a visible, concrete portfolio artifact." },
+          ],
+          examTips: [
+            { type: "info", icon: "💡", title: "Why this matters for SAP", text: "SAP exam scenarios describe a business problem and ask for the BEST architecture. Training yourself to think in ADR format (context → decision → consequences) makes you naturally pick the 'most appropriate' answer." },
+            { type: "good", icon: "✅", title: "Interview superpower", text: "Candidates who show ADRs in portfolio reviews stand out dramatically. It signals senior-level thinking regardless of years of experience." },
+          ],
+          resources: [
+            { type: "Template", name: "Michael Nygard's ADR template (adr.github.io)", time: "15 min", typeColor: "#0d2044", typeText: "#58a6ff" },
+            { type: "Example", name: "GitHub — adr/adr-tools examples", time: "30 min", typeColor: "#0f2d18", typeText: "#3fb950" },
+          ]
+        }
+      }
+    ]
+  },
+  {
+    range: "Weeks 3–4",
+    title: "Advanced Networking & Hybrid",
+    color: "#3fb950",
+    colorDim: "#0f2d18",
+    desc: "Cloud Engineers know VPCs. Architects know how to connect 50 of them across accounts, regions, and into on-premises data centres — reliably, securely, and cost-efficiently.",
+    objectives: [
+      {
+        title: "Design a Transit Gateway topology connecting 5+ VPCs across multiple AWS accounts",
+        tag: "Networking", tagColor: "#0f2d18", tagText: "#3fb950",
+        learn: {
+          overview: `<strong>AWS Transit Gateway (TGW)</strong> is the central hub for connecting VPCs and on-premises networks at scale. Before TGW, companies built messy VPC peering meshes. TGW replaces all of that with a single managed hub — and it's a frequent high-difficulty SAP topic.`,
+          concepts: [
+            { name: "Transit Gateway basics", desc: "Acts as a cloud router. Attach VPCs, VPNs, and Direct Connect gateways to a single TGW. Traffic routes through it instead of point-to-point peering." },
+            { name: "TGW Route Tables", desc: "Each attachment can have its own route table, enabling network segmentation. E.g. production VPCs only talk to each other; dev VPCs are isolated from prod." },
+            { name: "Inter-region peering", desc: "Connect TGWs across AWS regions for global multi-region architectures. Traffic stays on the AWS backbone (faster, more reliable than public internet)." },
+            { name: "TGW vs VPC Peering", desc: "VPC Peering: simple, free data transfer within AZ, no transitive routing. TGW: supports transitive routing, centralised management, costs per attachment + data processed. Use peering for 2–3 VPCs; TGW for 4+." },
+          ],
+          lab: [
+            { title: "Create 3 VPCs in one account", desc: "Use non-overlapping CIDR ranges: 10.0.0.0/16, 10.1.0.0/16, 10.2.0.0/16. This is critical — overlapping CIDRs break TGW routing." },
+            { title: "Create a Transit Gateway", desc: "In VPC console → Transit Gateways → Create. Accept defaults. Note the TGW ID." },
+            { title: "Attach all 3 VPCs to the TGW", desc: "For each VPC: Transit Gateway Attachments → Create → choose VPC type → select the VPC and a subnet in each AZ." },
+            { title: "Update route tables", desc: "In each VPC's route table, add routes for the other VPCs' CIDRs pointing to the TGW. Test connectivity by pinging between EC2 instances in different VPCs." },
+            { title: "Add a 4th VPC with isolated route table", desc: "Create a separate TGW route table for this VPC so it can't reach the others. This simulates a quarantine or shared-services isolation pattern." },
+          ],
+          examTips: [
+            { type: "warn", icon: "⚠️", title: "Transitive routing", text: "VPC Peering is NOT transitive — if VPC A peers with B, and B peers with C, A cannot reach C. This limitation is why TGW exists. The exam loves testing this." },
+            { type: "good", icon: "✅", title: "Centralised egress pattern", text: "A common SAP architecture: all VPCs route internet traffic through one 'egress VPC' with a NAT Gateway via TGW. Saves cost vs NAT Gateway in every VPC." },
+            { type: "info", icon: "💡", title: "Cost trap", text: "TGW charges per attachment-hour AND per GB processed. For dev environments or low-traffic VPCs, the cost may not justify TGW. The exam may ask you to identify the cheapest solution — sometimes that's still peering." },
+          ],
+          resources: [
+            { type: "Doc", name: "AWS Transit Gateway documentation", time: "45 min", typeColor: "#0f2d18", typeText: "#3fb950" },
+            { type: "Lab", name: "AWS Workshop — Networking Immersion Day", time: "2 hrs", typeColor: "#0d2044", typeText: "#58a6ff" },
+            { type: "Video", name: "re:Invent NET402 — Advanced VPC Design", time: "1 hr", typeColor: "#2d2007", typeText: "#d29922" },
+          ]
+        }
+      },
+      {
+        title: "Set up a Direct Connect + VPN failover hybrid architecture",
+        tag: "Hybrid", tagColor: "#2d1f0e", tagText: "#f0883e",
+        learn: {
+          overview: `<strong>Hybrid connectivity</strong> — linking on-premises data centres to AWS — is one of the most common real-world architect tasks and a major SAP exam domain. You need to know when to use Direct Connect, Site-to-Site VPN, or both together.`,
+          concepts: [
+            { name: "Site-to-Site VPN", desc: "Encrypted tunnel over the public internet. Fast to set up (minutes), costs ~$0.05/hr + data transfer. Bandwidth limited to 1.25 Gbps max. Best for: backup connectivity, small data volumes, quick PoC." },
+            { name: "AWS Direct Connect", desc: "Dedicated private fibre from your DC to AWS. Consistent latency, up to 100 Gbps, no public internet. Takes weeks to provision. Costs: port-hour fee + data transfer (cheaper than internet at scale). Best for: large data volumes, latency-sensitive apps, compliance requirements." },
+            { name: "Direct Connect + VPN failover", desc: "Production pattern: Direct Connect for primary traffic, Site-to-Site VPN as automatic failover. BGP routing automatically fails over to VPN if DX goes down. This is the gold standard hybrid pattern." },
+            { name: "Direct Connect Gateway", desc: "Connects one Direct Connect to VPCs across multiple AWS regions — without needing a separate DX connection per region." },
+          ],
+          lab: [
+            { title: "Simulate the pattern (no real DX needed)", desc: "Use AWS Site-to-Site VPN with a software VPN (strongSwan or pfSense on EC2) acting as your 'on-premises' customer gateway. This mimics the real setup at zero cost." },
+            { title: "Create a Virtual Private Gateway", desc: "In VPC console → Virtual Private Gateways → Create → attach to your VPC." },
+            { title: "Create a Customer Gateway", desc: "Represents your on-prem router. Use your EC2 instance's public IP as the customer gateway IP." },
+            { title: "Create the VPN connection", desc: "Connect the VGW to the CGW. Download the configuration file for strongSwan and apply it to your EC2 'on-prem' instance." },
+            { title: "Test and document", desc: "Ping across the tunnel. Document: what's the bandwidth, what's the latency, what happens if the tunnel drops (simulate by stopping strongSwan)." },
+          ],
+          examTips: [
+            { type: "warn", icon: "⚠️", title: "Bandwidth limit trap", text: "VPN max is 1.25 Gbps. If a question mentions large data transfers or video production pipelines, VPN alone is wrong — needs Direct Connect." },
+            { type: "good", icon: "✅", title: "Compliance trigger", text: "Any question mentioning 'dedicated connection', 'consistent latency', or 'regulatory requirement for private connectivity' → Direct Connect is the answer." },
+            { type: "info", icon: "💡", title: "DX provisioning time", text: "Direct Connect takes weeks to provision. The exam uses this as a constraint — if you need connectivity TODAY, VPN is the only option, even if DX is the long-term plan." },
+          ],
+          resources: [
+            { type: "Doc", name: "AWS Direct Connect User Guide", time: "1 hr", typeColor: "#0f2d18", typeText: "#3fb950" },
+            { type: "Lab", name: "AWS Site-to-Site VPN hands-on lab", time: "1.5 hrs", typeColor: "#0d2044", typeText: "#58a6ff" },
+            { type: "Whitepaper", name: "AWS Hybrid Connectivity Whitepaper", time: "1 hr", typeColor: "#2d2007", typeText: "#d29922" },
+          ]
+        }
+      },
+      {
+        title: "Configure Route 53 with all 4 routing policy types",
+        tag: "DNS", tagColor: "#0d2044", tagText: "#58a6ff",
+        learn: {
+          overview: `<strong>Route 53</strong> is AWS's DNS service, but at architect level it's a sophisticated traffic management tool. Routing policies control how DNS queries are answered — and they're a reliable source of SAP exam questions because each policy suits a different scenario.`,
+          concepts: [
+            { name: "Simple routing", desc: "One record, one or more values returned randomly. No health checks. Use for single resources or dev environments." },
+            { name: "Weighted routing", desc: "Split traffic by percentage. E.g. 90% to v1, 10% to v2 (blue/green deployments, A/B testing). Weight 0 = no traffic sent." },
+            { name: "Latency-based routing", desc: "Route users to the AWS region with the lowest latency to them. Essential for global multi-region apps. Works with health checks." },
+            { name: "Failover routing", desc: "Primary + secondary record. Route 53 health checks the primary. If it fails, automatically routes to secondary. Foundation of active-passive DR." },
+            { name: "Geolocation routing", desc: "Route based on the user's geographic location (continent, country, or US state). Used for compliance (EU users must stay in eu-west), localisation, or content restrictions." },
+          ],
+          lab: [
+            { title: "Create a hosted zone", desc: "In Route 53, create a public hosted zone. You don't need a real domain — use a subdomain of an existing one, or use Route 53's free private hosted zone for testing." },
+            { title: "Set up weighted records", desc: "Create two A records for the same name, pointing to two different EC2 instances. Set weights 80/20. Use 'dig' or nslookup repeatedly to see the distribution." },
+            { title: "Add a health check", desc: "Create a Route 53 health check on the primary endpoint. Stop the EC2 instance and watch Route 53 stop returning that IP (takes ~30 seconds with default settings)." },
+            { title: "Create a failover pair", desc: "Primary record (with health check) + Secondary record. Mark them as PRIMARY and SECONDARY. Test failover by failing the primary's health check." },
+          ],
+          examTips: [
+            { type: "warn", icon: "⚠️", title: "Geolocation vs Latency", text: "These are commonly confused. Geolocation = WHERE the user is located. Latency = which region responds fastest. A user in Europe might have lower latency to us-east-1 than eu-west-1 (rare but possible). Latency routing measures actual performance; geolocation is rule-based." },
+            { type: "good", icon: "✅", title: "Scenario keywords", text: "Blue/green deployment → Weighted. Global app, best performance → Latency. Disaster recovery active-passive → Failover. GDPR data residency → Geolocation." },
+            { type: "info", icon: "💡", title: "TTL matters", text: "Low TTL (30–60s) lets Route 53 failover take effect quickly but increases DNS query costs. High TTL (3600s) is cheaper but slow to propagate changes. The exam may ask you to balance these." },
+          ],
+          resources: [
+            { type: "Doc", name: "Route 53 Routing Policies documentation", time: "45 min", typeColor: "#0f2d18", typeText: "#3fb950" },
+            { type: "Lab", name: "AWS Route 53 Hands-On — all routing types", time: "1.5 hrs", typeColor: "#0d2044", typeText: "#58a6ff" },
+          ]
+        }
+      }
+    ]
+  },
+  {
+    range: "Weeks 5–6",
+    title: "High Availability & Disaster Recovery",
+    color: "#f85149",
+    colorDim: "#2d0f0e",
+    desc: "HA and DR are where architect-level thinking diverges sharply from engineer-level thinking. Engineers deploy for availability. Architects define the target, calculate the cost, and build the proof.",
+    objectives: [
+      {
+        title: "Design a multi-region active-active architecture with RPO < 1 min and RTO < 5 min",
+        tag: "HA Design", tagColor: "#2d0f0e", tagText: "#f85149",
+        learn: {
+          overview: `<strong>Active-active</strong> means traffic runs simultaneously in multiple AWS regions with no 'standby' mode. It's the highest availability architecture — and the most expensive. Architects must know when it's justified and how to build it with the right AWS services.`,
+          concepts: [
+            { name: "RPO (Recovery Point Objective)", desc: "Maximum acceptable data loss measured in time. RPO < 1 minute means you can lose at most 1 minute of data. Drives your replication strategy." },
+            { name: "RTO (Recovery Time Objective)", desc: "Maximum acceptable downtime after a failure. RTO < 5 minutes means the system must be fully serving traffic within 5 minutes. Drives your failover automation strategy." },
+            { name: "Active-active components", desc: "Route 53 latency routing across regions, DynamoDB Global Tables (multi-region replication, ~1s lag), Aurora Global Database (RPO < 1s, RTO < 1 min), S3 Cross-Region Replication, CloudFront for edge caching." },
+            { name: "Conflict resolution", desc: "The hardest problem in active-active: what happens when the same record is written in two regions simultaneously? DynamoDB Global Tables uses 'last writer wins'. Applications must be designed to handle this." },
+          ],
+          lab: [
+            { title: "Create a DynamoDB Global Table", desc: "Create a DynamoDB table → Actions → Create Global Table → Add region (e.g. us-east-1 + ap-southeast-1). Write a record in one region and confirm it appears in the other within seconds." },
+            { title: "Set up Aurora Global Database", desc: "Create an Aurora MySQL cluster → Add region → This creates a read replica in the second region with < 1s replication lag. Test the promotion (failover to secondary takes ~1 minute)." },
+            { title: "Configure Route 53 latency routing", desc: "Point your app domain at both regional endpoints with latency-based routing + health checks. Simulate a region failure by taking down the primary endpoint's health check." },
+            { title: "Measure your RPO and RTO", desc: "Write data, simulate failure, measure: how old was the newest replicated record? How long until traffic fully shifted? Document these numbers — they're your actual RPO/RTO." },
+          ],
+          examTips: [
+            { type: "warn", icon: "⚠️", title: "Cost is always a factor", text: "Active-active is expensive. If the exam says 'cost is the primary concern', the answer is NOT active-active. Match HA strategy to the stated business requirement." },
+            { type: "good", icon: "✅", title: "Aurora Global vs Multi-AZ", desc: "" , text: "Multi-AZ = HA within one region (automatic failover ~60s). Aurora Global = HA across regions (RPO < 1s). Don't confuse them — the exam absolutely will." },
+            { type: "info", icon: "💡", title: "RTO shortcuts", text: "Pre-warming is key to low RTO. If you have Lambda in the secondary region, keep it warm. If using EC2, have AMIs baked and Auto Scaling group ready to scale immediately." },
+          ],
+          resources: [
+            { type: "Doc", name: "AWS Disaster Recovery Whitepaper", time: "1.5 hrs", typeColor: "#0d2044", typeText: "#58a6ff" },
+            { type: "Doc", name: "DynamoDB Global Tables documentation", time: "45 min", typeColor: "#0f2d18", typeText: "#3fb950" },
+            { type: "Lab", name: "AWS Workshop — Multi-Region Resiliency", time: "2.5 hrs", typeColor: "#2d2007", typeText: "#d29922" },
+          ]
+        }
+      },
+      {
+        title: "Implement all 4 DR strategies: Backup/Restore, Pilot Light, Warm Standby, Multi-Site",
+        tag: "DR Strategy", tagColor: "#1f1035", tagText: "#bc8cff",
+        learn: {
+          overview: `The 4 DR strategies form a spectrum from cheap-and-slow to expensive-and-fast. The SAP exam gives you business constraints (RPO, RTO, budget) and expects you to select the right strategy. Knowing the cost vs speed trade-off of each is non-negotiable.`,
+          concepts: [
+            { name: "Backup & Restore", desc: "RPO: hours. RTO: hours. Lowest cost. Back up data to S3, restore to new instances during disaster. No standby infrastructure. For non-critical systems." },
+            { name: "Pilot Light", desc: "RPO: minutes. RTO: tens of minutes. Core services (databases) run continuously in DR region at minimal scale. App servers are off — you start and scale them during a disaster. Like a gas pilot light — small flame ready to ignite." },
+            { name: "Warm Standby", desc: "RPO: seconds/minutes. RTO: minutes. Full system runs in DR region at reduced scale (e.g. 20% of prod capacity). During disaster, scale up using Auto Scaling. More expensive than Pilot Light but faster recovery." },
+            { name: "Multi-Site Active-Active", desc: "RPO: near-zero. RTO: near-zero. Full production runs in both regions simultaneously. Most expensive. For mission-critical systems where any downtime costs more than the DR infrastructure." },
+          ],
+          lab: [
+            { title: "Implement Pilot Light", desc: "In a second region: create an RDS read replica of your prod DB (this is the 'pilot light'). Create an AMI of your app server. During 'disaster': promote the read replica, launch EC2 from AMI, update Route 53." },
+            { title: "Time your RTO", desc: "Stop the clock when you trigger the DR plan. Start it when the app is serving traffic again. Document how long each step takes. This is your real RTO." },
+            { title: "Build a DR runbook", desc: "Write the step-by-step failover procedure. Include AWS Console steps AND CLI commands as backup. A good runbook is executable by anyone on call, not just the architect who designed it." },
+          ],
+          examTips: [
+            { type: "good", icon: "✅", title: "Match to the scenario", text: "Scenario says RTO < 15 minutes, cost-sensitive → Pilot Light. RTO < 5 minutes, not price-sensitive → Warm Standby. RTO near-zero → Multi-Site. Don't over-engineer!" },
+            { type: "warn", icon: "⚠️", title: "Read replica misconception", text: "RDS read replicas are NOT automatic failover — you must manually promote them. Only RDS Multi-AZ failover is automatic. This distinction drives several exam questions." },
+          ],
+          resources: [
+            { type: "Whitepaper", name: "AWS DR Architecture Whitepaper", time: "1.5 hrs", typeColor: "#0d2044", typeText: "#58a6ff" },
+            { type: "Lab", name: "AWS DR Workshop — implementing all 4 strategies", time: "3 hrs", typeColor: "#0f2d18", typeText: "#3fb950" },
+          ]
+        }
+      }
+    ]
+  },
+  {
+    range: "Weeks 7–8",
+    title: "Migration Strategies (7 Rs)",
+    color: "#f0883e",
+    colorDim: "#3d2012",
+    desc: "Cloud migration is a core architect deliverable. The 7 Rs framework is the standard tool for classifying workloads — and it's directly tested in the SAP exam's migration domain (~15% of questions).",
+    objectives: [
+      {
+        title: "Apply the 7 Rs migration framework to classify 10 different workload scenarios",
+        tag: "Framework", tagColor: "#0d2044", tagText: "#58a6ff",
+        learn: {
+          overview: `The <strong>7 Rs</strong> (originally 6 Rs from Gartner, extended by AWS) give architects a standard vocabulary for migration decisions. Each 'R' represents a different migration strategy with a different cost, complexity, and benefit profile.`,
+          concepts: [
+            { name: "Retire", desc: "~10–20% of workloads. Shut it down — it's no longer needed. Migration is the perfect time to identify zombie systems. Before retiring, confirm no hidden dependencies." },
+            { name: "Retain", desc: "Keep on-premises for now. Reasons: compliance, mainframe dependencies, not yet migration-ready, or simply 'not worth the effort yet'. Revisit in 12–24 months." },
+            { name: "Rehost (Lift & Shift)", desc: "Move to AWS with no code changes. Use AWS Application Migration Service (MGN). Fastest way to migrate — good for meeting a data centre deadline. Limited cloud optimisation benefits initially." },
+            { name: "Replatform (Lift, Tinker & Shift)", desc: "Minor optimisations without changing core architecture. E.g. move MySQL on EC2 → RDS MySQL (managed service, no OS patches). Quick win, meaningful operational benefit." },
+            { name: "Repurchase", desc: "Drop existing app, buy a SaaS replacement. E.g. on-prem CRM → Salesforce. Lose customisations, gain managed service. Good when the app is a commodity." },
+            { name: "Refactor / Re-architect", desc: "Re-build using cloud-native services. E.g. monolith → microservices on ECS + Lambda. Highest effort, highest long-term benefit. Justified for core business differentiating apps." },
+            { name: "Relocate", desc: "Move VMware workloads to VMware Cloud on AWS. No changes to VMs, hypervisor, or tools. Useful for large VMware estates where refactoring isn't feasible yet." },
+          ],
+          lab: [
+            { title: "Classification exercise", desc: "Take these 7 sample workloads and classify each with a reason: (1) Legacy HR system used by 3 people, (2) Customer-facing e-commerce site, (3) SAP ERP, (4) Internal wiki nobody updates, (5) MySQL DB on EC2, (6) On-prem email server, (7) Real-time analytics pipeline." },
+            { title: "Build a migration portfolio", desc: "Create a spreadsheet: Workload | Current State | Recommended R | Rationale | Estimated Effort (S/M/L) | Priority (1–3). This is a real deliverable architects produce for clients." },
+            { title: "Present your classification", desc: "Explain your choices aloud (record yourself or explain to someone). Being able to justify a migration decision verbally is essential for architect interviews and stakeholder meetings." },
+          ],
+          examTips: [
+            { type: "good", icon: "✅", title: "Trigger words", text: "Minimum code change + quick migration → Rehost. No code change + managed service benefit → Replatform. Rebuild for cloud-native benefits → Refactor. Fastest possible migration → Rehost. No business value → Retire." },
+            { type: "warn", icon: "⚠️", title: "Rehost ≠ always worst", text: "The exam doesn't treat Rehost as inferior. If the constraint is TIME (e.g. data centre contract expiring in 3 months), Rehost is the CORRECT answer even for apps that could be refactored." },
+          ],
+          resources: [
+            { type: "Doc", name: "AWS Migration Strategy documentation", time: "45 min", typeColor: "#0d2044", typeText: "#58a6ff" },
+            { type: "Course", name: "AWS Cloud Migration Fundamentals (free on AWS Skill Builder)", time: "2 hrs", typeColor: "#0f2d18", typeText: "#3fb950" },
+          ]
+        }
+      },
+      {
+        title: "Design a database migration from Oracle on-prem to Aurora PostgreSQL using DMS + SCT",
+        tag: "Database Migration", tagColor: "#0f2d18", tagText: "#3fb950",
+        learn: {
+          overview: `<strong>AWS Database Migration Service (DMS)</strong> and <strong>Schema Conversion Tool (SCT)</strong> are the two key tools for heterogeneous database migrations. Moving from Oracle to Aurora PostgreSQL is one of the most common (and lucrative) migrations — and a realistic SAP scenario.`,
+          concepts: [
+            { name: "AWS SCT (Schema Conversion Tool)", desc: "Desktop tool that converts database schemas from one engine to another. Handles tables, views, stored procedures, functions. Gives you a report on conversion complexity — some code you'll need to convert manually." },
+            { name: "AWS DMS (Database Migration Service)", desc: "Cloud service that replicates data continuously. Supports homogeneous (MySQL→MySQL) and heterogeneous (Oracle→Aurora) migrations. Runs ongoing replication with < 1 second lag during cutover." },
+            { name: "Full Load vs CDC", desc: "Full Load: copies all existing data (good for initial migration). Change Data Capture (CDC): captures ongoing changes from source DB transaction logs. Use both together for near-zero downtime migration." },
+            { name: "Replication instance", desc: "The DMS compute that performs the migration. Size it based on source DB size and transaction volume. Under-sizing causes replication lag." },
+          ],
+          lab: [
+            { title: "Install AWS SCT", desc: "Download from AWS website. Connect it to a local MySQL database (free alternative to Oracle for the exercise). Run a schema assessment report — see what converts automatically vs what needs manual fixes." },
+            { title: "Create a DMS replication instance", desc: "In AWS Console → DMS → Replication Instances → Create. Use dms.t3.medium for lab purposes." },
+            { title: "Create source and target endpoints", desc: "Source: your MySQL DB. Target: an RDS Aurora PostgreSQL instance. Test the connections from DMS." },
+            { title: "Run a migration task", desc: "Create a task: Full Load + CDC. Start it. Monitor the table statistics tab to see rows migrated in real time. After full load, keep CDC running and insert rows to source — watch them replicate." },
+          ],
+          examTips: [
+            { type: "info", icon: "💡", title: "Homogeneous vs Heterogeneous", text: "Homogeneous (same engine, e.g. MySQL → MySQL): use DMS only, skip SCT. Heterogeneous (different engine, e.g. Oracle → Aurora): must use SCT first to convert schema, then DMS to migrate data." },
+            { type: "warn", icon: "⚠️", title: "Stored procedures", text: "SCT cannot always convert Oracle PL/SQL stored procedures to PostgreSQL automatically. The exam may present this as a challenge — the answer is manual conversion or refactoring into application code." },
+            { type: "good", icon: "✅", title: "Near-zero downtime", text: "The combination of DMS Full Load + CDC means you can migrate with minimal downtime: let CDC sync, then at cutover just redirect the app connection string. SAP exam loves this pattern." },
+          ],
+          resources: [
+            { type: "Tool", name: "AWS SCT download + documentation", time: "1 hr", typeColor: "#0d2044", typeText: "#58a6ff" },
+            { type: "Lab", name: "AWS DMS Workshop (free, on AWS workshop.aws)", time: "2 hrs", typeColor: "#0f2d18", typeText: "#3fb950" },
+            { type: "Doc", name: "AWS DMS User Guide — best practices", time: "45 min", typeColor: "#2d2007", typeText: "#d29922" },
+          ]
+        }
+      }
+    ]
+  },
+  {
+    range: "Weeks 9–10",
+    title: "Data, Analytics & AI/ML",
+    color: "#bc8cff",
+    colorDim: "#1f1035",
+    desc: "Data architecture is the fastest-growing architect domain in 2026. AI/ML integration is now expected at architect level. These two weeks close the gap between a cloud engineer and a modern solutions architect.",
+    objectives: [
+      {
+        title: "Design a data lake on S3 using Glue, Athena, and Lake Formation with column-level security",
+        tag: "Data Lake", tagColor: "#1f1035", tagText: "#bc8cff",
+        learn: {
+          overview: `A <strong>data lake</strong> is a centralised repository storing structured and unstructured data at any scale. AWS's data lake stack (S3 + Glue + Athena + Lake Formation) is the standard architecture — and it's increasingly tested in SAP as data workloads move to the cloud.`,
+          concepts: [
+            { name: "S3 as the storage layer", desc: "All data lands in S3 in its raw form. Organise with prefixes: s3://bucket/raw/, /processed/, /curated/. Use S3 Intelligent-Tiering for automatic cost optimisation across access patterns." },
+            { name: "AWS Glue", desc: "Serverless ETL (Extract, Transform, Load) service. Glue Crawler scans data and builds a metadata catalog. Glue ETL jobs transform raw data into queryable formats (Parquet is preferred — columnar, compressed, 10× faster for Athena)." },
+            { name: "Amazon Athena", desc: "Serverless SQL query engine. Query data directly in S3 — no database to manage. Pay per query (per TB scanned). Parquet format reduces cost by up to 87% vs CSV by scanning less data." },
+            { name: "AWS Lake Formation", desc: "Governance layer on top of the data lake. Provides: fine-grained access control (column-level, row-level), data sharing across accounts, and audit logging. Think of it as IAM specifically for data." },
+          ],
+          lab: [
+            { title: "Upload raw data to S3", desc: "Create a bucket with prefix /raw/. Upload a CSV file (use any public dataset — AWS provides sample NYC taxi data). This is your raw landing zone." },
+            { title: "Run a Glue Crawler", desc: "Create a Glue Crawler pointing at your S3 prefix. Run it — it will detect the schema and create a table in the Glue Data Catalog automatically." },
+            { title: "Query with Athena", desc: "Open Athena, select the Glue database, and run a SQL query. Note the data scanned. Then convert the CSV to Parquet using a Glue ETL job and re-query — observe the cost and speed difference." },
+            { title: "Apply Lake Formation permissions", desc: "In Lake Formation, grant column-level access so one IAM role can only see certain columns (e.g. hide salary column from analysts). Test by querying as both roles." },
+          ],
+          examTips: [
+            { type: "good", icon: "✅", title: "Parquet always wins", text: "Any SAP question about Athena cost optimisation → convert to Parquet and partition the data. This is the standard answer and rarely fails." },
+            { type: "info", icon: "💡", title: "Lake Formation vs S3 bucket policies", text: "S3 bucket policies are coarse-grained (object-level). Lake Formation adds column-level and row-level security on top. For fine-grained analytics access control, Lake Formation is the answer." },
+            { type: "warn", icon: "⚠️", title: "Glue vs EMR", text: "Glue: serverless, managed, best for standard ETL jobs. EMR: managed Hadoop/Spark cluster, best for complex processing, custom code, or very large scale. The exam will give you a scenario to choose between them." },
+          ],
+          resources: [
+            { type: "Lab", name: "AWS Lake Formation Workshop (workshop.aws)", time: "2 hrs", typeColor: "#0d2044", typeText: "#58a6ff" },
+            { type: "Doc", name: "Amazon Athena performance tuning guide", time: "45 min", typeColor: "#0f2d18", typeText: "#3fb950" },
+          ]
+        }
+      },
+      {
+        title: "Integrate a SageMaker inference endpoint into a serverless application",
+        tag: "AI / ML", tagColor: "#0d2d30", tagText: "#39d0d8",
+        learn: {
+          overview: `AI/ML integration is now a core expectation for Solutions Architects in 2026. You don't need to train models — but you must know how to architect applications that consume ML predictions via <strong>SageMaker endpoints</strong> in a scalable, cost-efficient way.`,
+          concepts: [
+            { name: "SageMaker endpoint types", desc: "Real-time inference: low latency, always-on endpoint. Serverless inference: scales to zero, ideal for intermittent traffic (cheaper but adds cold-start latency). Async inference: for large payloads or long processing times. Batch Transform: for offline bulk prediction." },
+            { name: "Integration pattern", desc: "Typical pattern: API Gateway → Lambda → SageMaker SDK invoke_endpoint() → return prediction. Lambda calls SageMaker synchronously and returns the result to the client within the API response." },
+            { name: "Model hosting", desc: "You don't need to train a model for this exercise — use a pre-built model from SageMaker JumpStart (AWS's model zoo). Hundreds of pre-trained models are deployable in one click." },
+            { name: "Cost considerations", desc: "Real-time endpoints: pay per hour the endpoint runs (even with no traffic). Serverless: pay per invocation. For intermittent workloads, serverless inference is dramatically cheaper." },
+          ],
+          lab: [
+            { title: "Deploy a pre-built model from JumpStart", desc: "In SageMaker console → JumpStart → find a text classification model (e.g. HuggingFace sentiment analysis) → Deploy to a Serverless endpoint." },
+            { title: "Test the endpoint directly", desc: "Use the SageMaker console's Test inference tab or AWS CLI: aws sagemaker-runtime invoke-endpoint. Send a sample text and see the prediction returned." },
+            { title: "Build a Lambda function", desc: "Write a Lambda that imports boto3, calls sagemaker_runtime.invoke_endpoint() with your endpoint name, and returns the parsed prediction as JSON." },
+            { title: "Expose via API Gateway", desc: "Create an HTTP API in API Gateway → integrate with your Lambda → deploy. You now have a production-ready ML inference API, serverless end-to-end." },
+          ],
+          examTips: [
+            { type: "info", icon: "💡", title: "Serverless vs Real-time endpoints", text: "If exam mentions 'unpredictable traffic' or 'cost optimisation' for ML → Serverless Inference. If 'consistent low latency required' → Real-time endpoint. This maps exactly to the general serverless-vs-EC2 logic." },
+            { type: "good", icon: "✅", title: "Bedrock vs SageMaker", text: "AWS Bedrock is for consuming foundation models (like Claude!) via API without managing infrastructure. SageMaker is for hosting custom or fine-tuned models. Know which to recommend for which scenario." },
+          ],
+          resources: [
+            { type: "Doc", name: "SageMaker Serverless Inference documentation", time: "30 min", typeColor: "#0d2044", typeText: "#58a6ff" },
+            { type: "Lab", name: "SageMaker JumpStart quick deployment lab", time: "1 hr", typeColor: "#0f2d18", typeText: "#3fb950" },
+            { type: "Video", name: "AWS re:Invent — Architect ML Applications", time: "45 min", typeColor: "#2d2007", typeText: "#d29922" },
+          ]
+        }
+      }
+    ]
+  },
+  {
+    range: "Weeks 11–12",
+    title: "Enterprise Security & Governance",
+    color: "#3fb950",
+    colorDim: "#0f2d18",
+    desc: "Enterprise-scale governance — multi-account structures, compliance automation, and encryption architecture — is exclusively a professional-level domain. This is what separates SAA from SAP.",
+    objectives: [
+      {
+        title: "Design a multi-account AWS Organizations structure with SCPs and Control Tower",
+        tag: "Governance", tagColor: "#0f2d18", tagText: "#3fb950",
+        learn: {
+          overview: `Large organisations never run everything in a single AWS account. <strong>AWS Organizations</strong> with <strong>Control Tower</strong> is the standard enterprise architecture for multi-account governance — and it's a high-complexity SAP domain that associate-level architects rarely encounter.`,
+          concepts: [
+            { name: "AWS Organizations", desc: "Manage multiple AWS accounts under one umbrella. Consolidated billing, centralised governance, and the foundation for applying policies at scale." },
+            { name: "Organizational Units (OUs)", desc: "Group accounts into logical units (e.g. Production OU, Dev OU, Sandbox OU). Policies applied to an OU automatically apply to all accounts within it." },
+            { name: "Service Control Policies (SCPs)", desc: "IAM-like policies applied at the OU or account level — but they RESTRICT what even account root users can do. SCPs cannot grant permissions; they only restrict. Think of them as guardrails." },
+            { name: "AWS Control Tower", desc: "Automates setting up a multi-account environment with best practices: Landing Zone, Account Factory, mandatory guardrails. Think of it as 'Organizations with training wheels and a control panel'." },
+            { name: "Recommended OU structure", desc: "Root → Security OU (Log Archive account + Audit account) → Infrastructure OU (Networking account) → Workloads OU → Dev OU → Sandbox OU. Security and networking accounts are always separated." },
+          ],
+          lab: [
+            { title: "Enable AWS Organizations", desc: "In AWS Console → AWS Organizations → Create Organization. This is free and non-destructive. Your existing account becomes the management account." },
+            { title: "Create Organizational Units", desc: "Create: Production OU, Development OU, Sandbox OU. Move accounts (or create new free-tier accounts) into each OU." },
+            { title: "Apply a Service Control Policy", desc: "Create an SCP that denies creating resources in any region except ap-southeast-2 (Sydney). Attach it to the Sandbox OU. Try to launch an EC2 in us-east-1 from that account — it should be denied even as admin." },
+            { title: "Explore Control Tower (optional)", desc: "Enable Control Tower in a fresh account. Explore the Account Factory — this is how enterprises provision new AWS accounts with pre-configured guardrails and logging in minutes." },
+          ],
+          examTips: [
+            { type: "warn", icon: "⚠️", title: "SCPs don't grant permissions", text: "The most common misconception: attaching an SCP that 'allows' S3 does NOT mean IAM users can access S3. SCPs only restrict. IAM permissions are still required. Both must allow an action for it to succeed." },
+            { type: "good", icon: "✅", title: "Centralised logging", text: "The exam loves the pattern: all accounts send CloudTrail logs to a dedicated Log Archive account in the Security OU. The Log Archive account has SCPs preventing anyone from deleting logs. This is immutable audit trail architecture." },
+            { type: "info", icon: "💡", title: "Account Factory", text: "When a question asks 'how do you provision a new AWS account that automatically complies with company security standards?' → AWS Control Tower Account Factory is the answer." },
+          ],
+          resources: [
+            { type: "Doc", name: "AWS Organizations best practices", time: "1 hr", typeColor: "#0d2044", typeText: "#58a6ff" },
+            { type: "Doc", name: "AWS Control Tower documentation", time: "1 hr", typeColor: "#0f2d18", typeText: "#3fb950" },
+            { type: "Whitepaper", name: "Organizing Your AWS Environment Using Multiple Accounts", time: "1.5 hrs", typeColor: "#2d2007", typeText: "#d29922" },
+          ]
+        }
+      },
+      {
+        title: "Explain KMS key hierarchy, envelope encryption, and customer-managed vs AWS-managed keys",
+        tag: "Encryption", tagColor: "#2d1f0e", tagText: "#f0883e",
+        learn: {
+          overview: `<strong>AWS KMS (Key Management Service)</strong> is the foundation of encryption across all AWS services. At architect level, you must understand the key hierarchy, envelope encryption pattern, and the security vs cost implications of each key type — this is consistently tested in SAP.`,
+          concepts: [
+            { name: "AWS Managed Keys", desc: "Free. AWS creates and rotates them automatically. You cannot control rotation schedule, key policy, or delete them. Service-specific (e.g. aws/s3, aws/rds). No additional cost to use." },
+            { name: "Customer Managed Keys (CMK)", desc: "$1/month per key + $0.03 per 10,000 API calls. You control key policy, rotation (optional annual auto-rotation), and can disable/delete the key. Required for compliance scenarios needing control over who can use the key." },
+            { name: "Envelope Encryption", desc: "The pattern AWS uses internally: Data Encryption Key (DEK) encrypts the actual data. The DEK is then encrypted by the CMK (the 'envelope'). KMS never sees your data — only the encrypted DEK is stored alongside the data." },
+            { name: "Key policies vs IAM", desc: "KMS key access is controlled by both key policies AND IAM policies — both must allow. This is different from most AWS services where IAM alone is sufficient. Easy exam trick." },
+          ],
+          lab: [
+            { title: "Create a Customer Managed Key", desc: "KMS → Create Key → Symmetric → give it an alias (alias/my-test-key). In the key policy, note how you grant key administrators vs key users separately." },
+            { title: "Encrypt an S3 bucket with your CMK", desc: "Create an S3 bucket → Properties → Server-side encryption → SSE-KMS → select your CMK. Upload a file. Now try to download it as an IAM user who doesn't have kms:Decrypt permission — you'll be denied even though they have s3:GetObject." },
+            { title: "Test envelope encryption with CLI", desc: "Use aws kms generate-data-key --key-id alias/my-test-key. You'll receive a plaintext DEK and an encrypted DEK. The plaintext is used to encrypt data; the encrypted DEK is stored. Delete the plaintext from memory. This is envelope encryption in action." },
+            { title: "Enable automatic key rotation", desc: "On your CMK → Key Rotation → Enable. AWS will rotate the key annually automatically. Note: old data encrypted with the old key version is still decryptable — KMS tracks all versions." },
+          ],
+          examTips: [
+            { type: "warn", icon: "⚠️", title: "CMK deletion delay", desc: "", text: "You cannot immediately delete a CMK — minimum 7 days waiting period (max 30 days). During this time you can cancel. This is intentional — deleting a CMK makes all data encrypted by it permanently unrecoverable." },
+            { type: "good", icon: "✅", title: "Compliance trigger", text: "Any question mentioning 'bring your own key', 'rotate keys on custom schedule', 'audit all key usage', or 'prevent AWS from accessing your keys' → Customer Managed Keys. Some even need CloudHSM for FIPS 140-2 Level 3." },
+            { type: "info", icon: "💡", title: "CloudHSM vs KMS", text: "KMS: shared hardware, AWS manages the HSM, FIPS 140-2 Level 2. CloudHSM: dedicated hardware, you manage, FIPS 140-2 Level 3. Only use CloudHSM when regulations explicitly require it — it's expensive." },
+          ],
+          resources: [
+            { type: "Doc", name: "AWS KMS concepts documentation", time: "1 hr", typeColor: "#0d2044", typeText: "#58a6ff" },
+            { type: "Lab", name: "KMS Encryption hands-on lab (AWS Skill Builder)", time: "1 hr", typeColor: "#0f2d18", typeText: "#3fb950" },
+          ]
+        }
+      }
+    ]
+  },
+  {
+    range: "Weeks 13–14",
+    title: "Capstone & Exam Readiness",
+    color: "#d29922",
+    colorDim: "#2d2007",
+    desc: "Everything comes together. Build a complete reference architecture, hit 80%+ on practice exams, and walk into the SAP-C02 ready to pass.",
+    objectives: [
+      {
+        title: "Build a documented capstone reference architecture (HA, DR, security, cost-optimised)",
+        tag: "Portfolio", tagColor: "#2d2007", tagText: "#d29922",
+        learn: {
+          overview: `Your <strong>capstone project</strong> is the single most important portfolio artifact you'll produce. It demonstrates architect-level thinking across all domains simultaneously — and directly prepares you for the multi-domain SAP exam scenarios.`,
+          concepts: [
+            { name: "What to build", desc: "A 3-tier web application: presentation layer (CloudFront + S3), application layer (ALB + ECS/Lambda), data layer (Aurora + ElastiCache). Multi-AZ. DR to second region. Security headers, WAF, KMS encryption throughout." },
+            { name: "What to document", desc: "Architecture diagram (draw.io), ADR for each major design decision, cost estimate (Pricing Calculator), WAF review findings, RPO/RTO targets and how the architecture achieves them, and a migration plan if this were replacing an on-prem system." },
+            { name: "Tools to use", desc: "draw.io or Cloudcraft for diagrams. AWS Pricing Calculator for cost. AWS Well-Architected Tool for the formal review. GitHub for hosting all documents publicly." },
+          ],
+          lab: [
+            { title: "Design and draw the architecture", desc: "Start with the happy path (normal traffic flow), then add failure scenarios (AZ failure, region failure, data breach). Your diagram should show what happens in each case." },
+            { title: "Deploy the core infrastructure", desc: "Use Terraform or CloudFormation to deploy the actual infrastructure. Having working code is more impressive than diagrams alone." },
+            { title: "Run a Well-Architected Review", desc: "Put your capstone through the AWS Well-Architected Tool. Address at least 2 High Risk findings. Document what you changed and why." },
+            { title: "Write up a one-page architecture brief", desc: "Executive summary: what it is, why each major decision was made, what it costs, and what the RPO/RTO is. Practice explaining it in 5 minutes — this is your interview answer." },
+          ],
+          examTips: [
+            { type: "good", icon: "✅", title: "Portfolio = interview shortcut", text: "Candidates who walk into Solutions Architect interviews with a public GitHub repo containing a capstone architecture, ADRs, and WAF review get technical rounds waived. The documentation IS the interview." },
+            { type: "info", icon: "💡", title: "Cloudcraft", text: "Cloudcraft.co renders AWS architecture diagrams automatically from your actual AWS account. Free tier available. Produces professional-looking diagrams instantly — worth using for portfolio." },
+          ],
+          resources: [
+            { type: "Tool", name: "draw.io (diagrams.net) — free architecture diagrams", time: "Ongoing", typeColor: "#0d2044", typeText: "#58a6ff" },
+            { type: "Tool", name: "Cloudcraft — AWS architecture visualiser", time: "30 min", typeColor: "#0f2d18", typeText: "#3fb950" },
+            { type: "Template", name: "AWS Reference Architecture Diagrams library", time: "1 hr inspiration", typeColor: "#2d2007", typeText: "#d29922" },
+          ]
+        }
+      },
+      {
+        title: "Score 80%+ on two full Tutorials Dojo SAP-C02 practice exams",
+        tag: "Exam Prep", tagColor: "#2d0f0e", tagText: "#f85149",
+        learn: {
+          overview: `The SAP-C02 real exam is 65 questions, 180 minutes, passing score ~72%. Practice exams are the most efficient use of your final study weeks. Here's how to use them strategically rather than just grinding questions.`,
+          concepts: [
+            { name: "Tutorials Dojo", desc: "The most respected SAP practice exam provider. Their questions closely mirror the real exam's difficulty and style. Get the timed mode: 65 questions, 180 minutes, no hints. $15–20 for full access." },
+            { name: "How to review wrong answers", desc: "For every wrong answer: (1) identify WHICH topic you got wrong, (2) read the explanation fully, (3) go back to the AWS documentation for that specific topic, (4) make a flashcard or note. Don't just memorise the answer — understand the principle." },
+            { name: "Exam strategy", desc: "Flag uncertain questions and return to them. Don't spend more than 2.5 minutes on any question in the first pass. The SAP exam has long scenario descriptions — learn to skim to the actual question at the end first." },
+            { name: "Topic weak spots for most candidates", desc: "Migration strategies, hybrid networking (Direct Connect specifics), data lake architecture, multi-account governance, and cost optimisation scenarios are the most commonly missed." },
+          ],
+          lab: [
+            { title: "Take Practice Exam 1 (timed, no hints)", desc: "Full 65 questions, 180-minute timer. Recreate real exam conditions: no notes, no AWS console open. Record your score and which topics you got wrong." },
+            { title: "Deep review of every wrong answer", desc: "For each wrong question: write down the correct principle in your own words. Group wrong answers by topic. If you missed 3+ questions on the same topic, that topic needs dedicated study." },
+            { title: "Targeted study on weak areas (3–5 days)", desc: "Go back to the documentation, Stephane Maarek's videos, or AWS workshops for the specific topics where you lost points. Don't re-read everything — focus on your gaps." },
+            { title: "Take Practice Exam 2 (timed, no hints)", desc: "After gap study. Target: 80%+. If below 75%, do another targeted review cycle. If 80%+, book the real exam. Don't wait for 90% — over-preparation has diminishing returns." },
+          ],
+          examTips: [
+            { type: "good", icon: "✅", title: "Book the exam before you're ready", text: "Having a booked exam date creates the right pressure. Book for 2–3 weeks after your second practice exam hits 80%. The deadline makes the final preparation more focused." },
+            { type: "info", icon: "💡", title: "On exam day", text: "Read each question to the end before looking at answers. The final sentence often changes the entire meaning. Eliminate obviously wrong answers first. With 4 options, eliminating 2 wrong answers gives you 50/50 odds on the remainder." },
+            { type: "warn", icon: "⚠️", title: "Whizlabs vs Tutorials Dojo", text: "Tutorials Dojo is more accurate to real exam difficulty. Whizlabs is slightly easier. If you score well on Whizlabs, test yourself on Tutorials Dojo before booking — the real exam is closer to TD difficulty." },
+          ],
+          resources: [
+            { type: "Course", name: "Tutorials Dojo SAP-C02 Practice Exams", time: "2 full exams", typeColor: "#2d0f0e", typeText: "#f85149" },
+            { type: "Course", name: "Stephane Maarek — SAP-C02 Complete Course (Udemy)", time: "27 hrs total", typeColor: "#1f1035", typeText: "#bc8cff" },
+            { type: "Tool", name: "AWS Exam Readiness — SAP (free on Skill Builder)", time: "4 hrs", typeColor: "#0f2d18", typeText: "#3fb950" },
+          ]
+        }
+      }
+    ]
+  }
+];
+
+let currentWeek = 0;
+let checked = {};
+let expandedCards = {};
+
+function totalObjectives() {
+  let t = 0;
+  weeks.forEach(w => t += w.objectives.length);
+  return t;
+}
+
+function doneCount() {
+  let d = 0;
+  weeks.forEach((w, wi) => w.objectives.forEach((_, oi) => {
+    if (checked[`${wi}-${oi}`]) d++;
+  }));
+  return d;
+}
+
+function updateProgress() {
+  const total = totalObjectives();
+  const done = doneCount();
+  const pct = total ? Math.round((done / total) * 100) : 0;
+  document.getElementById('sp-pct').textContent = pct + '%';
+  document.getElementById('sp-bar-fill').style.width = pct + '%';
+  document.getElementById('sp-counts').textContent = `${done} of ${total} objectives completed`;
+}
+
+function renderSidebar() {
+  const nav = document.getElementById('sidebar-nav');
+  nav.innerHTML = '';
+  weeks.forEach((w, wi) => {
+    const done = w.objectives.filter((_, oi) => checked[`${wi}-${oi}`]).length;
+    const el = document.createElement('div');
+    el.className = 'nav-week' + (wi === currentWeek ? ' active' : '');
+    el.onclick = () => goToWeek(wi);
+    el.innerHTML = `
+      <div class="nav-week-range">${w.range}</div>
+      <div class="nav-week-title">${w.title}</div>
+      <div class="nav-week-prog" style="color:${done === w.objectives.length && done > 0 ? '#3fb950' : '#7d8590'}">${done}/${w.objectives.length} done</div>
+    `;
+    nav.appendChild(el);
+  });
+}
+
+function renderContent() {
+  const w = weeks[currentWeek];
+  document.getElementById('topbar-week').textContent = w.range;
+  document.getElementById('topbar-title').textContent = w.title;
+
+  const area = document.getElementById('content-area');
+  area.className = 'content fade-anim';
+
+  let html = `
+    <div class="week-hero">
+      <span class="week-badge" style="background:${w.colorDim};color:${w.color}">${w.range}</span>
+      <h2>${w.title}</h2>
+      <p class="week-desc">${w.desc}</p>
+    </div>
+  `;
+
+  w.objectives.forEach((obj, oi) => {
+    const key = `${currentWeek}-${oi}`;
+    const done = checked[key] || false;
+    const expanded = expandedCards[key] || false;
+
+    html += `
+      <div class="obj-card ${done ? 'completed' : ''} ${expanded ? 'expanded' : ''}" id="card-${key}">
+        <div class="obj-card-top">
+          <div class="obj-checkbox" onclick="toggleCheck('${key}')">${done ? '✓' : ''}</div>
+          <div class="obj-top-right">
+            <div class="obj-title">${obj.title}</div>
+            <div class="obj-meta">
+              <span class="obj-tag" style="background:${obj.tagColor};color:${obj.tagText}">${obj.tag}</span>
+              <button class="expand-btn" onclick="toggleExpand('${key}')">
+                ${expanded ? '▲ Hide content' : '▼ Study content'}
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="obj-content">
+          <div class="content-tabs" id="tabs-${key}">
+            <button class="tab-btn active" onclick="showTab('${key}','overview',this)">Overview</button>
+            <button class="tab-btn" onclick="showTab('${key}','concepts',this)">Key Concepts</button>
+            <button class="tab-btn" onclick="showTab('${key}','lab',this)">Hands-on Lab</button>
+            <button class="tab-btn" onclick="showTab('${key}','exam',this)">Exam Tips</button>
+            <button class="tab-btn" onclick="showTab('${key}','resources',this)">Resources</button>
+          </div>
+          ${renderTabPanels(obj.learn, key)}
+        </div>
+      </div>
+    `;
+  });
+
+  html += `
+    <div class="nav-btns">
+      ${currentWeek > 0 ? `<button class="nav-btn" onclick="prevWeek()">← ${weeks[currentWeek-1].title}</button>` : ''}
+      ${currentWeek < weeks.length - 1 ? `<button class="nav-btn primary" onclick="nextWeek()">Next: ${weeks[currentWeek+1].title} →</button>` : '<button class="nav-btn primary" style="background:#3fb950;border-color:#3fb950">🎉 All weeks complete — Book your exam!</button>'}
+    </div>
+  `;
+
+  area.innerHTML = html;
+}
+
+function renderTabPanels(learn, key) {
+  return `
+    <div class="tab-panel active" id="tab-${key}-overview">
+      <div class="learn-section">
+        <h4>What you'll learn</h4>
+        <p>${learn.overview}</p>
+      </div>
+    </div>
+    <div class="tab-panel" id="tab-${key}-concepts">
+      <div class="learn-section">
+        <h4>Key Concepts</h4>
+        <div class="concept-list">
+          ${learn.concepts.map(c => `
+            <div class="concept-item">
+              <div class="concept-name">${c.name}</div>
+              <div class="concept-desc">${c.desc}</div>
+            </div>
+          `).join('')}
+        </div>
+      </div>
+    </div>
+    <div class="tab-panel" id="tab-${key}-lab">
+      <div class="learn-section">
+        <h4>Hands-on Lab Steps</h4>
+        <div class="lab-steps">
+          ${learn.lab.map(s => `
+            <div class="lab-step">
+              <div class="lab-step-body">
+                <div class="lab-step-title">${s.title}</div>
+                <div class="lab-step-desc">${s.desc}</div>
+              </div>
+            </div>
+          `).join('')}
+        </div>
+      </div>
+    </div>
+    <div class="tab-panel" id="tab-${key}-exam">
+      <div class="learn-section">
+        <h4>SAP Exam Tips</h4>
+        <div class="exam-tips">
+          ${learn.examTips.map(t => `
+            <div class="exam-tip ${t.type}">
+              <div class="exam-tip-icon">${t.icon}</div>
+              <div class="exam-tip-text"><strong>${t.title}</strong>${t.text}</div>
+            </div>
+          `).join('')}
+        </div>
+      </div>
+    </div>
+    <div class="tab-panel" id="tab-${key}-resources">
+      <div class="learn-section">
+        <h4>Study Resources</h4>
+        <div class="resource-list">
+          ${learn.resources.map(r => `
+            <div class="resource-item">
+              <span class="resource-type" style="background:${r.typeColor};color:${r.typeText}">${r.type}</span>
+              <span class="resource-name">${r.name}</span>
+              <span class="resource-time">${r.time}</span>
+            </div>
+          `).join('')}
+        </div>
+      </div>
+    </div>
+  `;
+}
+
+function toggleCheck(key) {
+  checked[key] = !checked[key];
+  const card = document.getElementById('card-' + key);
+  const box = card.querySelector('.obj-checkbox');
+  const title = card.querySelector('.obj-title');
+  if (checked[key]) {
+    card.classList.add('completed');
+    box.textContent = '✓';
+  } else {
+    card.classList.remove('completed');
+    box.textContent = '';
+  }
+  updateProgress();
+  renderSidebar();
+}
+
+function toggleExpand(key) {
+  expandedCards[key] = !expandedCards[key];
+  const card = document.getElementById('card-' + key);
+  const btn = card.querySelector('.expand-btn');
+  card.classList.toggle('expanded');
+  btn.textContent = expandedCards[key] ? '▲ Hide content' : '▼ Study content';
+}
+
+function showTab(key, tabName, btnEl) {
+  const panels = ['overview','concepts','lab','exam','resources'];
+  panels.forEach(p => {
+    const el = document.getElementById(`tab-${key}-${p}`);
+    if (el) el.classList.remove('active');
+  });
+  const active = document.getElementById(`tab-${key}-${tabName}`);
+  if (active) active.classList.add('active');
+
+  const tabsEl = document.getElementById('tabs-' + key);
+  if (tabsEl) tabsEl.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  if (btnEl) btnEl.classList.add('active');
+}
+
+function goToWeek(wi) {
+  currentWeek = wi;
+  renderSidebar();
+  renderContent();
+  document.querySelector('.main').scrollTo(0, 0);
+  window.scrollTo(0, 0);
+}
+
+function nextWeek() {
+  if (currentWeek < weeks.length - 1) goToWeek(currentWeek + 1);
+}
+
+function prevWeek() {
+  if (currentWeek > 0) goToWeek(currentWeek - 1);
+}
+
+// Init
+updateProgress();
+renderSidebar();
+renderContent();
+</script>
+</body>
+</html>

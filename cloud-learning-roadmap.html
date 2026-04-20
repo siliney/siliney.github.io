@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cloud IT Learning Roadmap 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Syne:wght@400;600;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #050c1a;
+    --panel: #0a1628;
+    --border: #1a3050;
+    --accent1: #00e5ff;
+    --accent2: #7b61ff;
+    --accent3: #00ff88;
+    --accent4: #ff6b35;
+    --text: #e0eeff;
+    --muted: #5a7a99;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: 'Syne', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: linear-gradient(rgba(0,229,255,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(0,229,255,0.03) 1px, transparent 1px);
+    background-size: 40px 40px;
+    pointer-events: none;
+    z-index: 0;
+  }
+  .container { max-width: 960px; margin: 0 auto; padding: 40px 20px 80px; position: relative; z-index: 1; }
+  .header { text-align: center; margin-bottom: 44px; animation: fadeDown 0.7s ease both; }
+  .badge { display: inline-block; font-family: 'Space Mono', monospace; font-size: 11px; letter-spacing: 3px; color: var(--accent1); border: 1px solid var(--accent1); padding: 4px 14px; margin-bottom: 16px; }
+  h1 { font-size: clamp(26px, 5vw, 50px); font-weight: 800; line-height: 1.1; background: linear-gradient(135deg, var(--accent1) 0%, var(--accent2) 60%, var(--accent3) 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; margin-bottom: 10px; }
+  .subtitle { color: var(--muted); font-size: 13px; font-family: 'Space Mono', monospace; }
+  .objectives-intro { background: linear-gradient(135deg, rgba(0,229,255,0.06), rgba(123,97,255,0.06)); border: 1px solid rgba(0,229,255,0.2); border-radius: 12px; padding: 22px 26px; margin-bottom: 36px; animation: fadeDown 0.7s 0.1s ease both; }
+  .objectives-intro h2 { font-size: 11px; font-family: 'Space Mono', monospace; color: var(--accent1); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 14px; }
+  .obj-list { list-style: none; display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+  .obj-list li { font-size: 13px; color: var(--text); display: flex; align-items: flex-start; gap: 8px; line-height: 1.5; }
+  .obj-list li::before { content: '→'; color: var(--accent3); font-family: 'Space Mono', monospace; flex-shrink: 0; margin-top: 1px; }
+  @media (max-width: 600px) { .obj-list { grid-template-columns: 1fr; } }
+  .tabs { display: flex; gap: 8px; margin-bottom: 24px; flex-wrap: wrap; animation: fadeDown 0.7s 0.2s ease both; }
+  .tab { font-family: 'Space Mono', monospace; font-size: 10px; letter-spacing: 1.5px; text-transform: uppercase; padding: 7px 16px; border: 1px solid var(--border); background: transparent; color: var(--muted); cursor: pointer; transition: all 0.2s; border-radius: 4px; }
+  .tab:hover { border-color: var(--accent1); color: var(--accent1); }
+  .tab.active { background: var(--accent1); color: var(--bg); border-color: var(--accent1); font-weight: 700; }
+  .skills-grid { display: grid; gap: 14px; }
+  .skill-card { background: var(--panel); border: 1px solid var(--border); border-radius: 12px; overflow: hidden; transition: transform 0.2s, border-color 0.2s, box-shadow 0.2s; }
+  .skill-card:hover { transform: translateY(-2px); box-shadow: 0 8px 40px rgba(0,229,255,0.07); }
+  .skill-card.expanded { border-color: var(--card-color); }
+  .card-header { display: flex; align-items: center; gap: 14px; padding: 18px 22px; cursor: pointer; }
+  .card-icon { width: 42px; height: 42px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 20px; flex-shrink: 0; }
+  .card-meta { flex: 1; }
+  .card-meta h3 { font-size: 16px; font-weight: 700; margin-bottom: 3px; color: var(--card-color); }
+  .card-meta p { font-size: 12px; color: var(--muted); font-family: 'Space Mono', monospace; }
+  .card-right { display: flex; flex-direction: column; align-items: flex-end; gap: 6px; }
+  .demand-badge { font-family: 'Space Mono', monospace; font-size: 9px; letter-spacing: 1px; padding: 3px 9px; border-radius: 20px; text-transform: uppercase; white-space: nowrap; }
+  .demand-hot { background: rgba(255,107,53,0.15); color: var(--accent4); border: 1px solid rgba(255,107,53,0.3); }
+  .demand-high { background: rgba(0,255,136,0.1); color: var(--accent3); border: 1px solid rgba(0,255,136,0.3); }
+  .demand-rising { background: rgba(123,97,255,0.15); color: var(--accent2); border: 1px solid rgba(123,97,255,0.3); }
+  .toggle-icon { font-size: 20px; color: var(--muted); transition: transform 0.3s; line-height: 1; }
+  .skill-card.expanded .toggle-icon { transform: rotate(45deg); color: var(--card-color); }
+  .card-body { display: none; padding: 0 22px 22px; border-top: 1px solid var(--border); }
+  .skill-card.expanded .card-body { display: block; }
+  .card-body-inner { padding-top: 18px; display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+  @media (max-width: 580px) { .card-body-inner { grid-template-columns: 1fr; } }
+  .section-label { font-family: 'Space Mono', monospace; font-size: 9px; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); margin-bottom: 10px; }
+  .learning-items { list-style: none; display: flex; flex-direction: column; gap: 7px; }
+  .learning-items li { font-size: 13px; color: var(--text); display: flex; align-items: center; gap: 8px; }
+  .check { width: 17px; height: 17px; border-radius: 4px; border: 1.5px solid var(--border); display: inline-flex; align-items: center; justify-content: center; cursor: pointer; flex-shrink: 0; transition: all 0.15s; font-size: 10px; }
+  .check.done { background: var(--card-color); border-color: var(--card-color); color: #000; }
+  .cert-items { list-style: none; display: flex; flex-direction: column; gap: 7px; }
+  .cert-item { font-size: 12px; color: var(--text); background: rgba(255,255,255,0.03); border: 1px solid var(--border); border-radius: 6px; padding: 8px 12px; display: flex; align-items: center; gap: 8px; }
+  .cert-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--card-color); flex-shrink: 0; }
+  .timeline-bar { margin-top: 14px; background: rgba(255,255,255,0.03); border-radius: 6px; padding: 10px 13px; display: flex; justify-content: space-between; align-items: center; border: 1px solid var(--border); }
+  .timeline-label { font-size: 11px; color: var(--muted); font-family: 'Space Mono', monospace; }
+  .timeline-val { font-size: 12px; color: var(--card-color); font-weight: 600; }
+  .progress-bar-wrap { margin-top: 36px; animation: fadeUp 0.6s 0.3s ease both; }
+  .progress-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
+  .progress-title { font-family: 'Space Mono', monospace; font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); }
+  .progress-count { font-family: 'Space Mono', monospace; font-size: 12px; color: var(--accent3); }
+  .progress-track { height: 5px; background: var(--border); border-radius: 99px; overflow: hidden; }
+  .progress-fill { height: 100%; background: linear-gradient(90deg, var(--accent1), var(--accent3)); border-radius: 99px; transition: width 0.4s ease; width: 0%; }
+  @keyframes fadeDown { from { opacity: 0; transform: translateY(-14px); } to { opacity: 1; transform: translateY(0); } }
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: translateY(0); } }
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="header">
+    <div class="badge">IT Cloud Solutions · 2026</div>
+    <h1>Cloud Learning Roadmap</h1>
+    <p class="subtitle">Based on live job market data · Updated March 2026</p>
+  </div>
+
+  <div class="objectives-intro">
+    <h2>🎯 Your Learning Objectives</h2>
+    <ul class="obj-list">
+      <li>Deploy and manage workloads on AWS, Azure, or GCP</li>
+      <li>Design secure, scalable cloud architectures</li>
+      <li>Implement CI/CD pipelines and DevOps practices</li>
+      <li>Apply cloud security and compliance frameworks</li>
+      <li>Automate infrastructure using IaC (Terraform/Ansible)</li>
+      <li>Earn at least one recognized cloud certification</li>
+      <li>Manage cost, performance, and reliability (FinOps)</li>
+      <li>Integrate AI/ML services into cloud solutions</li>
+    </ul>
+  </div>
+
+  <div class="tabs" id="tabs">
+    <button class="tab active" data-track="all">All Tracks</button>
+    <button class="tab" data-track="beginner">Beginner</button>
+    <button class="tab" data-track="devops">DevOps</button>
+    <button class="tab" data-track="security">Security</button>
+    <button class="tab" data-track="ai">AI + Cloud</button>
+  </div>
+
+  <div class="skills-grid" id="skillsGrid"></div>
+
+  <div class="progress-bar-wrap">
+    <div class="progress-header">
+      <span class="progress-title">Topics Checked Off</span>
+      <span class="progress-count" id="progressCount">0 / 0</span>
+    </div>
+    <div class="progress-track">
+      <div class="progress-fill" id="progressFill"></div>
+    </div>
+  </div>
+</div>
+
+<script>
+const skills = [
+  {
+    id: 'foundations',
+    icon: '☁️',
+    color: '#00e5ff',
+    bg: 'rgba(0,229,255,0.1)',
+    title: 'Cloud Foundations',
+    subtitle: 'Start here — core concepts & first platform',
+    demand: 'high', demandLabel: 'Essential',
+    track: ['all','beginner'],
+    time: '4–6 weeks',
+    topics: ['Understand IaaS, PaaS, SaaS models','Set up AWS / Azure / GCP free tier account','Deploy your first virtual machine (VM)','Learn regions, zones & availability concepts','Basic networking: VPC, subnets, DNS, load balancing','Cloud storage services: S3, Blob Storage, GCS'],
+    certs: ['AWS Cloud Practitioner (CLF-C02)','Azure Fundamentals (AZ-900)','Google Cloud Digital Leader'],
+  },
+  {
+    id: 'aws',
+    icon: '🟠',
+    color: '#ff9900',
+    bg: 'rgba(255,153,0,0.1)',
+    title: 'AWS — Most In-Demand',
+    subtitle: '14% of all job listings require AWS in 2025',
+    demand: 'hot', demandLabel: '🔥 Hottest',
+    track: ['all','beginner','devops'],
+    time: '6–10 weeks',
+    topics: ['EC2, Lambda, ECS & container services','RDS, DynamoDB & database options','IAM roles, policies & least-privilege security','CloudFormation / CDK — Infrastructure as Code','API Gateway, SQS, SNS event-driven patterns','CloudWatch monitoring, alarms & log analytics'],
+    certs: ['AWS Solutions Architect Associate (SAA-C03)','AWS Developer Associate (DVA-C02)','AWS SysOps Administrator Associate'],
+  },
+  {
+    id: 'azure',
+    icon: '🔵',
+    color: '#4fa8f0',
+    bg: 'rgba(79,168,240,0.1)',
+    title: 'Microsoft Azure',
+    subtitle: 'Top choice for enterprise & Microsoft environments',
+    demand: 'high', demandLabel: 'High Demand',
+    track: ['all','beginner','devops'],
+    time: '6–10 weeks',
+    topics: ['Azure Virtual Machines & App Services','Azure Active Directory & Entra ID','Azure DevOps pipelines for CI/CD','Azure Kubernetes Service (AKS)','Azure Monitor & Log Analytics workspace','Bicep / ARM templates for IaC'],
+    certs: ['AZ-104: Azure Administrator','AZ-204: Azure Developer Associate','AZ-305: Azure Solutions Architect Expert'],
+  },
+  {
+    id: 'devops',
+    icon: '⚙️',
+    color: '#7b61ff',
+    bg: 'rgba(123,97,255,0.1)',
+    title: 'DevOps & CI/CD',
+    subtitle: 'Hardest roles to fill — highest pay premium',
+    demand: 'hot', demandLabel: '🔥 High Pay',
+    track: ['all','devops'],
+    time: '6–8 weeks',
+    topics: ['Git, GitHub Actions & branching strategies','Docker containers & image management','Kubernetes orchestration fundamentals','Terraform for multi-cloud IaC','Jenkins / GitHub Actions / GitLab CI pipelines','Prometheus & Grafana observability stack'],
+    certs: ['HashiCorp Terraform Associate','CKA: Certified Kubernetes Administrator','Docker Certified Associate'],
+  },
+  {
+    id: 'security',
+    icon: '🔐',
+    color: '#00ff88',
+    bg: 'rgba(0,255,136,0.07)',
+    title: 'Cloud Security',
+    subtitle: 'Ranked #1 skill by IT professionals for 2026',
+    demand: 'hot', demandLabel: '🔥 Critical Gap',
+    track: ['all','security'],
+    time: '6–10 weeks',
+    topics: ['Zero Trust architecture principles','Identity & Access Management (IAM/RBAC)','Cloud-native security tools (GuardDuty, Defender)','Encryption, KMS & secrets management','Incident response & threat detection','Compliance frameworks: ISO 27001, SOC 2, GDPR'],
+    certs: ['AWS Security Specialty (SCS-C02)','CompTIA Security+ (best entry point)','CCSP: Certified Cloud Security Professional'],
+  },
+  {
+    id: 'aicloud',
+    icon: '🤖',
+    color: '#ffd600',
+    bg: 'rgba(255,214,0,0.07)',
+    title: 'AI + Cloud Integration',
+    subtitle: 'AI job postings doubled in 2025 — fastest growing',
+    demand: 'rising', demandLabel: '↑ Fastest Growing',
+    track: ['all','ai'],
+    time: '5–8 weeks',
+    topics: ['Cloud AI services: Bedrock, Azure OpenAI, Vertex AI','Deploy and serve ML models on cloud platforms','LLMOps — managing AI models in production','Build data pipelines for AI workloads','Prompt engineering & Retrieval-Augmented Generation (RAG)','AI cost management & responsible AI governance'],
+    certs: ['AWS Certified ML Specialty','Google Professional ML Engineer','Azure AI Engineer Associate (AI-102)'],
+  },
+  {
+    id: 'finops',
+    icon: '💰',
+    color: '#ff6b35',
+    bg: 'rgba(255,107,53,0.08)',
+    title: 'FinOps & Multi-Cloud',
+    subtitle: 'Control cloud spend — valuable in every team',
+    demand: 'rising', demandLabel: '↑ Rising',
+    track: ['all','devops'],
+    time: '2–4 weeks',
+    topics: ['Cloud billing dashboards & cost analysis','Reserved instances vs spot vs on-demand pricing','Right-sizing compute and storage resources','Multi-cloud strategy & avoiding vendor lock-in','Tagging standards & cost allocation by team','FinOps Foundation framework & practices'],
+    certs: ['FinOps Certified Practitioner (FOCP)','AWS Cost Optimization badge','Azure FinOps Review certification'],
+  },
+];
+
+let checked = {};
+let expandedCards = new Set();
+let activeTrack = 'all';
+
+function getDemandClass(d) {
+  if (d === 'hot') return 'demand-hot';
+  if (d === 'high') return 'demand-high';
+  return 'demand-rising';
+}
+
+function renderSkills() {
+  const grid = document.getElementById('skillsGrid');
+  const filtered = skills.filter(s => s.track.includes(activeTrack));
+  grid.innerHTML = filtered.map((s, i) => `
+    <div class="skill-card ${expandedCards.has(s.id) ? 'expanded' : ''}" id="card-${s.id}" style="--card-color:${s.color};animation:fadeUp 0.4s ${i*0.06}s ease both">
+      <div class="card-header" onclick="toggleCard('${s.id}')">
+        <div class="card-icon" style="background:${s.bg}">${s.icon}</div>
+        <div class="card-meta">
+          <h3>${s.title}</h3>
+          <p>${s.subtitle}</p>
+        </div>
+        <div class="card-right">
+          <span class="demand-badge ${getDemandClass(s.demand)}">${s.demandLabel}</span>
+          <span class="toggle-icon">+</span>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="card-body-inner">
+          <div>
+            <div class="section-label">Topics to Learn</div>
+            <ul class="learning-items">
+              ${s.topics.map((t, ti) => {
+                const key = s.id+'-'+ti;
+                return `<li><span class="check ${checked[key]?'done':''}" onclick="toggleCheck('${s.id}',${ti})">${checked[key]?'✓':''}</span>${t}</li>`;
+              }).join('')}
+            </ul>
+          </div>
+          <div>
+            <div class="section-label">Top Certifications</div>
+            <ul class="cert-items">
+              ${s.certs.map(c => `<li class="cert-item"><span class="cert-dot"></span>${c}</li>`).join('')}
+            </ul>
+            <div class="timeline-bar">
+              <span class="timeline-label">⏱ Time to learn</span>
+              <span class="timeline-val">${s.time}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  `).join('');
+  updateProgress();
+}
+
+function toggleCard(id) {
+  if (expandedCards.has(id)) expandedCards.delete(id);
+  else expandedCards.add(id);
+  renderSkills();
+}
+
+function toggleCheck(skillId, topicIdx) {
+  const key = skillId+'-'+topicIdx;
+  checked[key] = !checked[key];
+  expandedCards.add(skillId);
+  renderSkills();
+}
+
+function updateProgress() {
+  const allKeys = skills.flatMap(s => s.topics.map((_,i) => s.id+'-'+i));
+  const done = allKeys.filter(k => checked[k]).length;
+  const pct = allKeys.length ? (done/allKeys.length)*100 : 0;
+  document.getElementById('progressFill').style.width = pct+'%';
+  document.getElementById('progressCount').textContent = `${done} / ${allKeys.length}`;
+}
+
+document.getElementById('tabs').addEventListener('click', e => {
+  if (e.target.classList.contains('tab')) {
+    document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+    e.target.classList.add('active');
+    activeTrack = e.target.dataset.track;
+    renderSkills();
+  }
+});
+
+renderSkills();
+</script>
+</body>
+</html>
